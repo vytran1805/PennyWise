@@ -4,6 +4,7 @@ import {
   Checkbox,
   FormControlLabel,
   TextField,
+  Link,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
@@ -24,13 +25,6 @@ const Signup = () => {
   const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); //prevent the page from refreshing after hitting submit
-    // const email = data.get('email') ?? '';
-    // const username = data.get('username');
-    // const password = data.get('password');
-    // console.log({
-    //   email: data.get('email'),
-    //   password: data.get('password'),
-    // });
     axios
       .post('http://localhost:3001/register', { email, username, password })
       .then(() => {
@@ -110,6 +104,9 @@ const Signup = () => {
         >
           Sign up
         </Button>
+        <Link href='/login' variant='body2'>
+          Have an account? Log in
+        </Link>
       </Box>
     </Container>
   );
