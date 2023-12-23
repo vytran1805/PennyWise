@@ -8,6 +8,7 @@ import {
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -20,9 +21,9 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); //prevent the page from refreshing after hitting submit
-    const data = new FormData(event.currentTarget);
     // const email = data.get('email') ?? '';
     // const username = data.get('username');
     // const password = data.get('password');
@@ -36,6 +37,8 @@ const Signup = () => {
         setEmail('');
         setUsername('');
         setPassword('');
+        fetchUsers();
+        navigate('/login'); // navigate to Login once user successfully sign up
         console.log('submitted');
       })
       .catch((error) => {
