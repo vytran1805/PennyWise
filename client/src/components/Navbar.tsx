@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { useTheme } from '@mui/material';
-import { useState } from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -14,10 +13,85 @@ const LinkComponent = styled.div`
   gap: 10px;
   text-decoration: none;
 `;
-
+// TODO add css when click on the link item
 export const NavBar = () => {
+  const isUserLoggedIn = !!localStorage.getItem('token');
+  const navigate = useNavigate();
   const { palette } = useTheme();
-  const [selected, setSelected] = useState('homepage');
+  // const [selected, setSelected] = useState('homepage');
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token');
+    navigate('/');
+    window.location.reload();
+    console.log('removed');
+  };
+
+  /**
+   * If user is signed in, render Account and Logout component
+   * @returns JSX component
+   */
+  const handleUserSignedIn = () => {
+    return (
+      <>
+        <Link
+          to='/account'
+          // onClick={handleSignOut}
+          style={{
+            // color: selected === 'login' ? 'inherit' : palette.grey[200],
+            textDecoration: 'inherit',
+            color: palette.grey[200],
+          }}
+        >
+          Account
+        </Link>
+        <Link
+          to='/'
+          onClick={handleSignOut}
+          style={{
+            // color: selected === 'login' ? 'inherit' : palette.grey[200],
+            textDecoration: 'inherit',
+            color: palette.grey[200],
+          }}
+        >
+          Log out
+        </Link>
+      </>
+    );
+  };
+
+  /**
+   * If user is signed out, render Login and Signup component
+   * @returns JSX component
+   */
+  const handleUserSignedOut = () => {
+    return (
+      <>
+        <Link
+          to='/login'
+          // onClick={() => setSelected('login')}
+          style={{
+            // color: selected === 'login' ? 'inherit' : palette.grey[200],
+            textDecoration: 'inherit',
+            color: palette.grey[200],
+          }}
+        >
+          Log in
+        </Link>
+        <Link
+          to='/register'
+          // onClick={() => setSelected('register')}
+          style={{
+            // color: selected === 'register' ? 'inherit' : palette.grey[200],
+            textDecoration: 'none',
+            color: palette.grey[200],
+          }}
+        >
+          Sign up
+        </Link>
+      </>
+    );
+  };
 
   return (
     <Container style={{ backgroundColor: palette.primary[800] }}>
@@ -37,26 +111,7 @@ export const NavBar = () => {
         <span>Penny Wise</span>
       </Link>
       <LinkComponent>
-        <Link
-          to='/login'
-          onClick={() => setSelected('login')}
-          style={{
-            color: selected === 'login' ? 'inherit' : palette.grey[200],
-            textDecoration: 'inherit',
-          }}
-        >
-          Login
-        </Link>
-        <Link
-          to='/register'
-          onClick={() => setSelected('register')}
-          style={{
-            color: selected === 'register' ? 'inherit' : palette.grey[200],
-            textDecoration: 'inherit',
-          }}
-        >
-          Sign up
-        </Link>
+        {isUserLoggedIn ? handleUserSignedIn() : handleUserSignedOut()}
       </LinkComponent>
     </Container>
   );

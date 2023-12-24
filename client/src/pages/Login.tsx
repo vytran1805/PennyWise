@@ -36,7 +36,7 @@ export const Login = () => {
       console.log({ username, password });
 
       navigate('/account'); // Navigates to the '/account' route
-      // window.location.reload(); // Make sure window reload
+      window.location.reload(); // Make sure window reload
       localStorage.setItem('token', token); // Stores the token in local storage for future use
     } catch (error) {
       alert('Login error');
