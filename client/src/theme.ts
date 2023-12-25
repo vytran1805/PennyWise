@@ -1,6 +1,3 @@
-import { createTheme } from '@mui/material/styles';
-import { useMemo } from 'react';
-
 export const colors = {
   // purple
   primary: {

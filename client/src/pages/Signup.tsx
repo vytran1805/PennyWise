@@ -18,7 +18,7 @@ const Container = styled.div`
   height: 90%;
 `;
 const Signup = () => {
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState([]);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');

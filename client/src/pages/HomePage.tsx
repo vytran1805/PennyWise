@@ -1,13 +1,13 @@
-import * as React from "react";
-import { NavBar } from "@/components/Navbar";
-import { Login } from "@/pages/Login";
+// import * as React from 'react';
+// import { NavBar } from '@/components/Navbar';
+// import { Login } from '@/pages/Login';
 
 export const HomePage = () => {
-  const [isLoginOpen, setIsLoginOpen] = React.useState(false);
+  // const [isLoginOpen, setIsLoginOpen] = React.useState(false);
 
-  const openLoginPopup = () => {
-    setIsLoginOpen(true);
-  };
+  // const openLoginPopup = () => {
+  //   setIsLoginOpen(true);
+  // };
 
   return (
     <div>

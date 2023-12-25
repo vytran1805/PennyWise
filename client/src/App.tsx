@@ -5,29 +5,35 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Signup from '@/pages/Signup';
 import Account from '@/pages/Account';
 import { HomePage } from '@/pages/HomePage';
-import { NavBar } from '@/components/Navbar';
+import { NavBar } from '@/global/navbar';
 import { Login } from '@/pages/Login';
+import { Sidebar } from './global/sidebar';
 
 function App() {
   const isUserLoggedIn = !!localStorage.getItem('token'); //check if user logged in successfully
 
   const theme = useMemo(() => createTheme(themeSettings), []);
   return (
-    <div className='app'>
-      <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          {/* CssBaseline will reset the setting of MUI to default */}
-          <CssBaseline />
-          <NavBar />
-          <Routes>
-            <Route path='/' element={<HomePage />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/register' element={<Signup />} />
-            {isUserLoggedIn && <Route path='/account' element={<Account />} />}
-          </Routes>
-        </ThemeProvider>
-      </BrowserRouter>
-    </div>
+    <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline will reset the setting of MUI to default */}
+        <CssBaseline />
+        <div className='app'>
+          <Sidebar />
+          <main className='content'>
+            <NavBar />
+            <Routes>
+              <Route path='/' element={<HomePage />} />
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Signup />} />
+              {isUserLoggedIn && (
+                <Route path='/account' element={<Account />} />
+              )}
+            </Routes>
+          </main>
+        </div>
+      </ThemeProvider>
+    </BrowserRouter>
   );
 }
 
