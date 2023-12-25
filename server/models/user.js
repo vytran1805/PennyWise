@@ -1,9 +1,17 @@
 import mongoose from 'mongoose';
 // define structure of User database
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true },
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  email: {
+    type: String,
+    required: [true, 'Email is required and should be unique'],
+    unique: true,
+  },
+  username: {
+    type: String,
+    required: [true, 'Name is required and should be unique'],
+    unique: true,
+  },
+  password: { type: String, required: [true, 'Passwordis required'] },
   income: [
     {
       type: mongoose.Schema.Types.ObjectId,

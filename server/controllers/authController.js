@@ -15,7 +15,7 @@ export const createUser = async (req, res) => {
     await newUser.save(); //save to the database
     res.status(201).json({ message: '201 - User created successfully' }); //return the resquest status when new user is successfully created
   } catch (error) {
-    res.status(500).json({ eror: '500 - Internal Server Error' });
+    res.status(500).json({ error: '500 - Internal Server Error' });
   }
 };
 
@@ -29,7 +29,7 @@ export const getUsers = async (req, res) => {
     const users = await User.find();
     res.status(201).json(users);
   } catch (error) {
-    res.status(500).json({ eror: '500 - Unable to get users' });
+    res.status(500).json({ error: '500 - Unable to get users' });
   }
 };
 
@@ -60,7 +60,7 @@ export const logUserIn = async (req, res) => {
       expiresIn: '1hr',
     });
 
-    res.json({ message: 'Login successful' });
+    res.json({ error: 'Login successful' });
     // res.status(201).json(user);
   } catch (error) {
     res.status(500).json({ error: '500 - Unable to login', message: error });
