@@ -1,4 +1,5 @@
 import { ListItemButton, ListItemText } from '@mui/material';
+import { testIds } from './testIds';
 
 type Props = {
   title: string;
@@ -12,12 +13,17 @@ export const SidebarListItem = (props: Props) => {
   const { title, icon, isCollapsed, selected, onClick } = props;
   return (
     <ListItemButton
+      data-test-id={testIds.sidebarListItem.container}
       selected={selected === title}
-      sx={{ display: 'flex', gap: 2 }}
+      sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}
       onClick={() => onClick(title)}
     >
       {icon}
-      {!isCollapsed && <ListItemText>{title}</ListItemText>}
+      {!isCollapsed && (
+        <ListItemText data-test-id={testIds.sidebarListItem.title}>
+          {title}
+        </ListItemText>
+      )}
     </ListItemButton>
   );
 };
