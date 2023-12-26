@@ -34,3 +34,52 @@ export const getAllTransactions = async (req, res) => {
     res.status(500).json({ error: '500 - Unable to get transactions' });
   }
 };
+
+export const updateTransaction = async (req, res) => {
+  try {
+    const { _id, name, amount, date, category } = req.body;
+
+    const updatedTransaction = await Transaction.findOneAndUpdate(
+      { _id }, // Find transaction by _id
+      { $set: { name, amount, date, category } }, // Update fields
+      {
+        new: true, // Return the updated document after the update operation
+        runValidators: true, // Run schema validators during the update operation
+      }
+    ).exec();
+
+    if (!updatedTransaction) {
+      return res.status(404).json({ error: 'Transaction not found' });
+    }
+
+    res.status(200).json({
+      message: 'Transaction updated successfully',
+      updatedTransaction,
+    });
+  } catch (error) {
+    res.status(500).json({ error: '500 - Unable to update transactions' });
+  }
+};
+
+export const deleteTransaction = async (req, res) => {
+  try {
+    const { _id } = req.body;
+
+    const deletedTransaction = await Transaction.findByIdAndDelete(_id);
+
+    if (!deletedTransaction) {
+      return res.status(404).json({ error: 'Transaction not found' });
+    }
+
+    res.status(200).json({
+      message: 'Transaction deleted successfully',
+      deletedTransaction,
+    });
+  } catch (error) {
+    res.status(500).json({
+      error: '500 - Unable to delete transaction',
+      message: error.message,
+    });
+  }
+};
+

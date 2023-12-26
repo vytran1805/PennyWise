@@ -5,11 +5,6 @@ const transactionSchema = new mongoose.Schema({
   description: { type: String, require: false },
   amount: { type: Number, require: [true, 'Amount is required'] },
   date: { type: mongoose.Schema.Types.Date, require: false },
-  // category: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: 'Category',
-  //   required: true,
-  // },
   category: { type: String, required: [true, 'Category is required'] },
 });
 
