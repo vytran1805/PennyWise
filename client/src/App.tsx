@@ -2,12 +2,13 @@ import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { useMemo } from 'react';
 import { themeSettings } from './theme';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Signup from '@/pages/Signup';
-import Account from '@/pages/Account';
+import { Signup } from '@/pages/Signup';
+import { Overview } from '@/pages/main/Overview';
 import { HomePage } from '@/pages/HomePage';
 import { NavBar } from '@/global/navbar';
 import { Login } from '@/pages/Login';
 import { Sidebar } from './global/sidebar';
+import { Budgets } from './pages/main/budgets';
 
 function App() {
   const isUserLoggedIn = !!localStorage.getItem('token'); //check if user logged in successfully
@@ -19,7 +20,7 @@ function App() {
         {/* CssBaseline will reset the setting of MUI to default */}
         <CssBaseline />
         <div className='app'>
-          <Sidebar />
+          {isUserLoggedIn && <Sidebar />}
           <main className='content'>
             <NavBar />
             <Routes>
@@ -27,7 +28,10 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Signup />} />
               {isUserLoggedIn && (
-                <Route path='/account' element={<Account />} />
+                <>
+                  <Route path='/overview' element={<Overview />} />
+                  <Route path='/budgets' element={<Budgets />} />
+                </>
               )}
             </Routes>
           </main>

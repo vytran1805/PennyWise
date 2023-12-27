@@ -1,10 +1,10 @@
-const sidebar = (testId: string) => {
+const Sidebar = (testId: string) => {
   return `sidebar-${testId}`;
 };
 export const testIds = {
   sidebar: {
-    container: sidebar('container'),
-    menu: sidebar('menu'),
-    listItemContainer: sidebar('listItem-container'),
+    container: Sidebar('container'),
+    menu: Sidebar('menu'),
+    listItemContainer: Sidebar('listItem-container'),
   },
 };
