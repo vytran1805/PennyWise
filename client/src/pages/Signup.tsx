@@ -17,7 +17,7 @@ const Container = styled.div`
   align-items: center;
   height: 90%;
 `;
-const Signup = () => {
+export const Signup = () => {
   // const [user, setUser] = useState([]);
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
@@ -111,5 +111,3 @@ const Signup = () => {
     </Container>
   );
 };
-
-export default Signup;
