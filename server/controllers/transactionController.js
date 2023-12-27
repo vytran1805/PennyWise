@@ -12,7 +12,7 @@ export const createTransaction = async (req, res) => {
       name,
       description,
       amount,
-      date: new Date(),
+      date,
       category,
     });
     await newTransaction.save();
@@ -37,11 +37,11 @@ export const getAllTransactions = async (req, res) => {
 
 export const updateTransaction = async (req, res) => {
   try {
-    const { _id, name, amount, date, category } = req.body;
+    const { _id, name, amount, date, category, type } = req.body;
 
     const updatedTransaction = await Transaction.findOneAndUpdate(
       { _id }, // Find transaction by _id
-      { $set: { name, amount, date, category } }, // Update fields
+      { $set: { name, type, amount, date, category } }, // Update fields
       {
         new: true, // Return the updated document after the update operation
         runValidators: true, // Run schema validators during the update operation
@@ -82,4 +82,3 @@ export const deleteTransaction = async (req, res) => {
     });
   }
 };
-
