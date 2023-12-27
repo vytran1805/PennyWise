@@ -1,54 +1,39 @@
 import { useState } from 'react';
 import { Sidebar as ProSidebar, Menu } from 'react-pro-sidebar';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
-import {
-
-  MenuOutlined,
-} from '@mui/icons-material';
+import { MenuOutlined } from '@mui/icons-material';
 import { SidebarListItem } from '@/components/SidebarListItem';
 import { sidebarItems } from '@/data/SidebarData';
 import { testIds } from '../testIds';
+import { useNavigate } from 'react-router-dom';
 
 export const Sidebar = () => {
   const { palette } = useTheme();
-
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>('Dashboard');
-
-  // Array of sidebar items
-  // const sidebarListItems = [
-  //   {
-  //     title: 'Manage Team',
-  //     to: '/team',
-  //     icon: <PeopleOutlined />,
-  //   },
-  //   {
-  //     title: 'Contacts Information',
-  //     to: '/contacts',
-  //     icon: <ContactsOutlined />,
-  //   },
-  //   {
-  //     title: 'Invoices Balances',
-  //     to: '/invoices',
-  //     icon: <ReceiptOutlined />,
-  //   },
-  // ];
+  const navigate = useNavigate();
 
   const handleListItemOnClick = (title: string) => {
     setSelected(title);
+    navigate(`/${title.toLowerCase()}`);
     console.log('Clicked on ', title);
   };
-  const handleSidebarOnCollapsed = () => {
-    return isCollapsed ? (
-      <Box display='flex' justifyContent='center'>
-        <IconButton
-          name='MenuOutlined'
-          onClick={() => setIsCollapsed(!isCollapsed)}
-        >
-          <MenuOutlined />
-        </IconButton>
-      </Box>
-    ) : (
+
+  const toggleCollapse = () => {
+    setIsCollapsed(!isCollapsed);
+  };
+
+  const renderSidebarHeader = () => {
+    if (isCollapsed) {
+      return (
+        <Box display='flex' justifyContent='center'>
+          <IconButton name='MenuOutlined' onClick={toggleCollapse}>
+            <MenuOutlined />
+          </IconButton>
+        </Box>
+      );
+    }
+    return (
       <Box
         display='flex'
         justifyContent='space-between'
@@ -56,19 +41,19 @@ export const Sidebar = () => {
         ml='15px'
       >
         <Typography variant='h3'>ADMIN</Typography>
-        <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+        <IconButton onClick={toggleCollapse}>
           <MenuOutlined />
         </IconButton>
       </Box>
     );
   };
+
   return (
     <Box
       sx={{
         display: 'flex',
         '& .ps-sidebar-container': {
-          background: `${palette.primary[300]} !important`, //background of the sidebar
-          // width: '100%',
+          background: `${palette.primary[300]} !important`, // Background of the sidebar
         },
         '& .css-ewdv3l': {
           width: '100%',
@@ -82,20 +67,18 @@ export const Sidebar = () => {
         collapsed={isCollapsed}
       >
         <Menu data-test-id={testIds.sidebar.menu}>
-          {handleSidebarOnCollapsed()}
-          {sidebarItems.map((item, index) => {
-            return (
-              <SidebarListItem
-                key={index}
-                title={item.title}
-                to={''}
-                isCollapsed={isCollapsed}
-                icon={item.icon}
-                selected={selected}
-                onClick={() => handleListItemOnClick(item.title)}
-              />
-            );
-          })}
+          {renderSidebarHeader()}
+          {sidebarItems.map((item, index) => (
+            <SidebarListItem
+              key={index}
+              title={item.title}
+              to={''}
+              isCollapsed={isCollapsed}
+              icon={item.icon}
+              selected={selected}
+              onClick={() => handleListItemOnClick(item.title)}
+            />
+          ))}
         </Menu>
       </ProSidebar>
     </Box>
