@@ -1,3 +1,4 @@
+import { fetchUsers, loginUser } from '@/state/api';
 import {
   Box,
   Button,
@@ -6,7 +7,6 @@ import {
   Link,
   TextField,
 } from '@mui/material';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
@@ -24,20 +24,15 @@ export const Login = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/login', {
-        username,
-        password,
-      });
-      const token = response.data.token; // Retrieves the token from the response data
-      alert('Login successful'); // Shows an alert for successful login
-      setPassword(''); // Clears the password field
-      setUsername(''); // Clears the username field
-      fetchUsers(); // Fetches user data
+      const token: string = await loginUser(username, password);
+      alert('Login successful');
+      setPassword('');
+      setUsername('');
+      fetchUsers();
       console.log({ username, password });
-
-      navigate('/account'); // Navigates to the '/account' route
-      window.location.reload(); // Make sure window reload
-      localStorage.setItem('token', token); // Stores the token in local storage for future use
+      navigate('/account');
+      window.location.reload();
+      localStorage.setItem('token', token);
     } catch (error) {
       alert('Login error');
     }
@@ -45,11 +40,6 @@ export const Login = () => {
   useEffect(() => {
     fetchUsers();
   }, []);
-  const fetchUsers = () => {
-    axios
-      .get('http://localhost:3001/register')
-      .then((res) => console.log(res.data));
-  };
   return (
     <Container>
       <Box
