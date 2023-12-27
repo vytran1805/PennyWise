@@ -1,31 +1,31 @@
 import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined';
 export const sidebarItems = [
   {
-    title: 'Budget1',
+    title: 'Overview',
     icon: <SavingsOutlinedIcon />,
   },
   {
-    title: 'Budget2',
+    title: 'Transactions',
     icon: <SavingsOutlinedIcon />,
   },
   {
-    title: 'Budget3',
+    title: 'Budgets',
     icon: <SavingsOutlinedIcon />,
   },
   {
-    title: 'Budget4',
+    title: 'Goals',
     icon: <SavingsOutlinedIcon />,
   },
   {
-    title: 'Budget5',
+    title: 'Settings',
     icon: <SavingsOutlinedIcon />,
   },
-  {
-    title: 'Budget6',
-    icon: <SavingsOutlinedIcon />,
-  },
-  {
-    title: 'Budget7',
-    icon: <SavingsOutlinedIcon />,
-  },
+  // {
+  //   title: 'Budget6',
+  //   icon: <SavingsOutlinedIcon />,
+  // },
+  // {
+  //   title: 'Budget7',
+  //   icon: <SavingsOutlinedIcon />,
+  // },
 ];
