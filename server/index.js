@@ -5,6 +5,7 @@ import cors from 'cors'; //handle cross origin resource sharing requests so that
 import dotenv from 'dotenv';
 import authRouter from './routes/authRoute.js';
 import transactionRouter from './routes/transactionRoute.js';
+import { AUTH, TRANSACTIONS } from './routes/routePaths.js'; // Import route paths
 
 /* CONFIGURATION */
 dotenv.config();
@@ -42,8 +43,8 @@ app.use(bodyParser.json());
 
 /* ROUTES */
 // Authentication
-app.use(authRouter);
-app.use(transactionRouter);
+app.use(AUTH, authRouter);
+app.use(TRANSACTIONS, transactionRouter);
 
 // app.post('/register', createUser);
 // GET registered users

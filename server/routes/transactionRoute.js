@@ -13,8 +13,8 @@ const transactionRouter = express.Router();
 //   .get(getAllTransactions)
 //   .post(createTransaction);
 // transactionRouter.route('/transaction').post(logUserIn);
-transactionRouter.post('/transactions', createTransaction);
-transactionRouter.get('/transactions', getAllTransactions);
-transactionRouter.patch('/transactions', updateTransaction);
-transactionRouter.delete('/transactions', deleteTransaction);
+transactionRouter.post('/', createTransaction);
+transactionRouter.get('/', getAllTransactions);
+transactionRouter.patch('/', updateTransaction);
+transactionRouter.delete('/', deleteTransaction);
 export default transactionRouter;

@@ -7,13 +7,14 @@ import Transaction from '../models/transaction.js';
  */
 export const createTransaction = async (req, res) => {
   try {
-    const { name, description, amount, category } = req.body;
+    const { name, description, amount, category, type } = req.body;
     const newTransaction = new Transaction({
       name,
       description,
       amount,
       date,
       category,
+      type,
     });
     await newTransaction.save();
     res.status(201).json({ message: '201 - Transaction created successfully' });
