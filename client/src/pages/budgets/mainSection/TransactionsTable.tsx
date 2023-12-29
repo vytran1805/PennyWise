@@ -4,57 +4,55 @@ import {
   useUpdateTransactionMutation,
 } from '@/redux/apiSlice';
 import { TransactionsResponse } from '@/redux/types';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridToolbarContainer } from '@mui/x-data-grid';
 import { useMemo, useState } from 'react';
 import { Button } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 
-export const Transactions = () => {
+export const TransactionsTable = () => {
   const [transactions, setTransactions] = useState<TransactionsResponse[]>([]);
-  const { data } = useGetAllTransactionsQuery();
-  console.log(data);
+  const { data: transactionData } = useGetAllTransactionsQuery(); // Fetch transaction data
+  console.log(transactionData);
 
+  // Destructuring mutation hooks for deleting and updating transactions
   const [deleteTransaction] = useDeleteTransactionMutation();
   const [updateTransaction] = useUpdateTransactionMutation();
 
   /**
-   * Prepare data for the transactions using useMemo()
+   * Prepare row records for the table using useMemo()
    * @FirstParam call back function
    * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
    */
   useMemo(() => {
-    if (data) {
-      const transformedData = data.map(
-        (
-          { name, date, amount, category, description, _id, type, __v },
-          index
-        ) => ({
-          id: index + 1,
-          name,
-          type,
-          date,
-          amount,
-          category,
-          description,
-          _id,
-          __v,
-        })
-      );
-      setTransactions(transformedData);
+    if (transactionData) {
+      const transactionRows = transactionData.map((data) => ({
+        id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
+        ...data,
+      }));
+      setTransactions(transactionRows);
+      console.log({ transactionRows });
     }
-  }, [data]);
+  }, [transactionData]);
 
+  const handleAddTransaction = () => {
+    return (
+      <GridToolbarContainer>
+        <Button color='primary' startIcon={<AddIcon />} onClick={() => {}}>
+          Add record
+        </Button>
+      </GridToolbarContainer>
+    );
+  };
   const handleUpdate = async (
     updatedData: TransactionsResponse
   ): Promise<TransactionsResponse> => {
     try {
-      // const { _id } = updatedData;
       const result = await updateTransaction({ data: updatedData });
       console.log({ result });
 
       const updatedTransactions = transactions.map((transaction) =>
         transaction._id === updatedData._id ? updatedData : transaction
       );
-      console.log({ updatedData });
 
       setTransactions(updatedTransactions);
       return updatedData; // Return the updated data
@@ -123,6 +121,7 @@ export const Transactions = () => {
           paginationModel: { page: 0, pageSize: 5 },
         },
       }}
+      slots={{ toolbar: handleAddTransaction }}
       pageSizeOptions={[5, 10]}
       editMode='row'
       processRowUpdate={handleUpdate}

@@ -3,7 +3,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import Box from '@mui/material/Box'; //This default import can be up to six times faster than the named imports (import { Box } from '@mui/material') ?????
-import { Transactions } from './Transactions';
+import { TransactionsTable } from './TransactionsTable';
 
 export const MainSection = () => {
   const [value, setValue] = useState<Date | null>(null);
@@ -25,7 +25,7 @@ export const MainSection = () => {
   return (
     <Box>
       {handleDatePicker()}
-      <Transactions />
+      <TransactionsTable />
     </Box>
   );
 };

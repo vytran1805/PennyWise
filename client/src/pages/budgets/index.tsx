@@ -12,10 +12,12 @@ const Container = styled(Box)`
 const MainContainer = styled(Box)`
   background: white;
   flex: 2;
+  padding: 10px;
 `;
 
 const RightContainer = styled(Box)`
   flex: 1;
+  padding: 10px;
 `;
 
 export const Budgets = () => {
