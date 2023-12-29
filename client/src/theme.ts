@@ -1,7 +1,7 @@
 export const colors = {
   // purple
   primary: {
-    100: '#E4E2EE',
+    // 100: '#E4E2EE',
     200: '#C7C4D4',
     300: '#c0bcdb',
     400: '#a19bc9',
@@ -36,8 +36,8 @@ export const colors = {
     900: '#242427',
   },
   background: {
-    light: 'E4E2EE',
-    dark: '1b182e',
+    light: '#E4E2EE',
+    dark: '#1b182e',
   },
 };
 
