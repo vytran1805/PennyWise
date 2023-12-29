@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Sidebar as ProSidebar, Menu } from 'react-pro-sidebar';
 import { Box, IconButton, Typography, useTheme } from '@mui/material';
 import { MenuOutlined } from '@mui/icons-material';
-import { SidebarListItem } from '@/components/SidebarListItem';
+import { SidebarListItem } from '@/components/sidebar/SidebarListItem';
 import { sidebarItems } from '@/data/SidebarData';
 import { testIds } from '../testIds';
 import { useNavigate } from 'react-router-dom';

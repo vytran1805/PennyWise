@@ -1,5 +1,5 @@
 import { ListItemButton, ListItemText } from '@mui/material';
-import { testIds } from './testIds';
+import { testIds } from '../testIds';
 
 type Props = {
   title: string;

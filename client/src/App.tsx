@@ -3,12 +3,12 @@ import { useMemo } from 'react';
 import { themeSettings } from './theme';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Signup } from '@/pages/Signup';
-import { Overview } from '@/pages/budgets/Overview';
+import { Overview } from '@/components/budgets/Overview';
 import { HomePage } from '@/pages/HomePage';
 import { NavBar } from '@/global/navbar';
 import { Login } from '@/pages/Login';
 import { Sidebar } from './global/sidebar';
-import { Budgets } from './pages/budgets';
+import { Budgets } from './pages/budgets/Budgets';
 
 function App() {
   const isUserLoggedIn = !!localStorage.getItem('token'); //check if user logged in successfully

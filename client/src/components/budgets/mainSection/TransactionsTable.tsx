@@ -1,4 +1,5 @@
 import {
+  useCreateTransactionMutation,
   useDeleteTransactionMutation,
   useGetAllTransactionsQuery,
   useUpdateTransactionMutation,
@@ -17,6 +18,7 @@ export const TransactionsTable = () => {
   // Destructuring mutation hooks for deleting and updating transactions
   const [deleteTransaction] = useDeleteTransactionMutation();
   const [updateTransaction] = useUpdateTransactionMutation();
+  const [createTransaction] = useCreateTransactionMutation();
 
   /**
    * Prepare row records for the table using useMemo()
@@ -34,15 +36,6 @@ export const TransactionsTable = () => {
     }
   }, [transactionData]);
 
-  const handleAddTransaction = () => {
-    return (
-      <GridToolbarContainer>
-        <Button color='primary' startIcon={<AddIcon />} onClick={() => {}}>
-          Add record
-        </Button>
-      </GridToolbarContainer>
-    );
-  };
   const handleUpdate = async (
     updatedData: TransactionsResponse
   ): Promise<TransactionsResponse> => {
@@ -73,6 +66,19 @@ export const TransactionsTable = () => {
     } catch (error) {
       console.error('Failed to delete transaction:', error);
     }
+  };
+  
+  const onAddButtonClicked = () => {
+
+  }
+  const handleAddButton = () => {
+    return (
+      <GridToolbarContainer>
+        <Button color='primary' startIcon={<AddIcon />} onClick={onAddButtonClicked}>
+          Add record
+        </Button>
+      </GridToolbarContainer>
+    );
   };
 
   const columns: GridColDef[] = [
@@ -121,7 +127,7 @@ export const TransactionsTable = () => {
           paginationModel: { page: 0, pageSize: 5 },
         },
       }}
-      slots={{ toolbar: handleAddTransaction }}
+      slots={{ toolbar: handleAddButton }}
       pageSizeOptions={[5, 10]}
       editMode='row'
       processRowUpdate={handleUpdate}

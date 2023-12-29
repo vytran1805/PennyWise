@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { Box } from '@mui/material';
 import { testIds } from '../testIds';
-import { TimelinePicker } from './mainSection/TimelinePicker';
-import { RightSection } from './RightSection';
-import { TransactionsTable } from './mainSection/TransactionsTable';
+import { TimelinePicker } from '../../components/budgets/mainSection/TimelinePicker';
+import { RightSection } from '../../components/budgets/rightSection/RightSection';
+import { TransactionsTable } from '../../components/budgets/mainSection/TransactionsTable';
 
 const Container = styled(Box)`
   display: flex;
