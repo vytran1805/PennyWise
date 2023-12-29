@@ -38,24 +38,25 @@ export const getAllTransactions = async (req, res) => {
 
 export const updateTransaction = async (req, res) => {
   try {
-    const { _id, name, amount, date, category, type } = req.body;
+    const { _id } = req.body;
 
-    const updatedTransaction = await Transaction.findOneAndUpdate(
+    const updatedTransaction = await Transaction.findByIdAndUpdate(
       { _id }, // Find transaction by _id
-      { $set: { name, type, amount, date, category } }, // Update fields
+      { $set: { ...req.body } }, // Update fields
       {
         new: true, // Return the updated document after the update operation
         runValidators: true, // Run schema validators during the update operation
       }
-    ).exec();
+    );
 
     if (!updatedTransaction) {
       return res.status(404).json({ error: 'Transaction not found' });
     }
+    const updatedData = await Transaction.find();
 
     res.status(200).json({
       message: 'Transaction updated successfully',
-      updatedTransaction,
+      updatedData,
     });
   } catch (error) {
     res.status(500).json({ error: '500 - Unable to update transactions' });
@@ -72,9 +73,11 @@ export const deleteTransaction = async (req, res) => {
       return res.status(404).json({ error: 'Transaction not found' });
     }
 
+    // Fetch the updated data after deletion
+    const updatedTransaction = await Transaction.find();
     res.status(200).json({
       message: 'Transaction deleted successfully',
-      deletedTransaction,
+      updatedTransaction,
     });
   } catch (error) {
     res.status(500).json({

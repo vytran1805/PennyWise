@@ -5,7 +5,7 @@ const transactionSchema = new mongoose.Schema({
   type: { type: String, require: [true, 'Type is required'] },
   description: { type: String, require: false },
   amount: { type: Number, require: [true, 'Amount is required'] },
-  date: { type: mongoose.Schema.Types.Date, require: false },
+  date: { type: String, require: false },
   category: { type: String, required: [true, 'Category is required'] },
 });
 
