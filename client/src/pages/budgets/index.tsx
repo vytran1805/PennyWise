@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import { Box } from '@mui/material';
 import { testIds } from '../testIds';
-import { MainSection } from './mainSection';
+import { TimelinePicker } from './mainSection/TimelinePicker';
 import { RightSection } from './RightSection';
+import { TransactionsTable } from './mainSection/TransactionsTable';
 
 const Container = styled(Box)`
   display: flex;
@@ -24,7 +25,8 @@ export const Budgets = () => {
   return (
     <Container data-test-id={testIds.budgets.container}>
       <MainContainer data-test-id={testIds.budgets.mainContainer}>
-        <MainSection />
+        <TimelinePicker />
+        <TransactionsTable />
       </MainContainer>
       <RightContainer data-test-id={testIds.budgets.rightContainer}>
         <RightSection />
