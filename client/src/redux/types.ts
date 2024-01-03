@@ -20,3 +20,12 @@ export interface TransactionsResponse {
   type: TransactionType;
   __v: number;
 }
+
+export interface TransactionData {
+  name?: string;
+  type?: string;
+  description?: string;
+  amount?: number;
+  // date?: Date;
+  category?: string;
+}
