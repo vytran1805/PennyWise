@@ -1,14 +1,13 @@
 import {
-  useCreateTransactionMutation,
   useDeleteTransactionMutation,
   useGetAllTransactionsQuery,
   useUpdateTransactionMutation,
-} from '@/redux/apiSlice';
+} from '@/redux/transactionsApi';
 import { TransactionsResponse } from '@/redux/types';
-import { DataGrid, GridColDef, GridToolbarContainer } from '@mui/x-data-grid';
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useMemo, useState } from 'react';
-import { Button } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
+import { Box, Button } from '@mui/material';
+import { AddTransactionButton } from './AddTransactionButton';
 
 export const TransactionsTable = () => {
   const [transactions, setTransactions] = useState<TransactionsResponse[]>([]);
@@ -18,7 +17,6 @@ export const TransactionsTable = () => {
   // Destructuring mutation hooks for deleting and updating transactions
   const [deleteTransaction] = useDeleteTransactionMutation();
   const [updateTransaction] = useUpdateTransactionMutation();
-  const [createTransaction] = useCreateTransactionMutation();
 
   /**
    * Prepare row records for the table using useMemo()
@@ -27,10 +25,12 @@ export const TransactionsTable = () => {
    */
   useMemo(() => {
     if (transactionData) {
-      const transactionRows = transactionData.map((data) => ({
-        id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
-        ...data,
-      }));
+      const transactionRows = transactionData.map(
+        (data: TransactionsResponse) => ({
+          id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
+          ...data,
+        })
+      );
       setTransactions(transactionRows);
       console.log({ transactionRows });
     }
@@ -66,19 +66,6 @@ export const TransactionsTable = () => {
     } catch (error) {
       console.error('Failed to delete transaction:', error);
     }
-  };
-  
-  const onAddButtonClicked = () => {
-
-  }
-  const handleAddButton = () => {
-    return (
-      <GridToolbarContainer>
-        <Button color='primary' startIcon={<AddIcon />} onClick={onAddButtonClicked}>
-          Add record
-        </Button>
-      </GridToolbarContainer>
-    );
   };
 
   const columns: GridColDef[] = [
@@ -119,18 +106,20 @@ export const TransactionsTable = () => {
   ];
 
   return (
-    <DataGrid
-      rows={transactions}
-      columns={columns}
-      initialState={{
-        pagination: {
-          paginationModel: { page: 0, pageSize: 5 },
-        },
-      }}
-      slots={{ toolbar: handleAddButton }}
-      pageSizeOptions={[5, 10]}
-      editMode='row'
-      processRowUpdate={handleUpdate}
-    />
+    <Box>
+      <DataGrid
+        rows={transactions}
+        columns={columns}
+        initialState={{
+          pagination: {
+            paginationModel: { page: 0, pageSize: 5 },
+          },
+        }}
+        slots={{ toolbar: () => <AddTransactionButton /> }}
+        pageSizeOptions={[5, 10]}
+        editMode='row'
+        processRowUpdate={handleUpdate}
+      />
+    </Box>
   );
 };

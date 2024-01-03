@@ -14,6 +14,7 @@ const MainContainer = styled(Box)`
   background: white;
   flex: 2;
   padding: 10px;
+  gap: 10px;
 `;
 
 const RightContainer = styled(Box)`
