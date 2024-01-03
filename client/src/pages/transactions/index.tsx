@@ -1,14 +1,15 @@
 import styled from 'styled-components';
 import { Box } from '@mui/material';
-import { testIds } from '../testIds';
-import { TimelinePicker } from '../../components/budgets/mainSection/TimelinePicker';
-import { RightSection } from '../../components/budgets/rightSection/RightSection';
-import { TransactionsTable } from '../../components/budgets/mainSection/TransactionsTable';
+import { testIds } from './testIds';
 import { TransactionsResponse } from '@/redux/types';
 import { useState } from 'react';
+import { TimelinePicker } from './mainSection/TimelinePicker';
+import { TransactionsTable } from './mainSection/TransactionsTable';
+import { RightSection } from './rightSection/RightSection';
 
 const Container = styled(Box)`
   display: flex;
+  width: 100%;
   height: 100%;
 `;
 
@@ -28,12 +29,16 @@ export const Transactions = () => {
   const [selectedTransaction, setSelectedTransaction] =
     useState<TransactionsResponse>();
   return (
-    <Container data-test-id={testIds.budgets.container}>
-      <MainContainer data-test-id={testIds.budgets.mainContainer}>
+    <Container data-test-id={testIds.transactions.container}>
+      <MainContainer
+        data-test-id={testIds.transactions.mainContainer.container}
+      >
         <TimelinePicker />
         <TransactionsTable onTransactionSelected={setSelectedTransaction} />
       </MainContainer>
-      <RightContainer data-test-id={testIds.budgets.rightContainer}>
+      <RightContainer
+        data-test-id={testIds.transactions.rightContainer.container}
+      >
         <RightSection transactionDetail={selectedTransaction} />
       </RightContainer>
     </Container>

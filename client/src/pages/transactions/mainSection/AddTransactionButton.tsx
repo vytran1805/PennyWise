@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { useState } from 'react';
 import {
   Button,
   Dialog,
@@ -6,6 +6,7 @@ import {
   DialogTitle,
   TextField,
   DialogActions,
+  Box,
 } from '@mui/material';
 import { GridToolbarContainer } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
@@ -13,6 +14,7 @@ import { useCreateTransactionMutation } from '@/redux/transactionsApi';
 import { TransactionData } from '@/redux/types';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { testIds } from '../testIds';
 
 export const AddTransactionButton = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -93,7 +95,7 @@ export const AddTransactionButton = () => {
     });
   };
   return (
-    <>
+    <Box data-test-id={testIds.transactions.mainContainer.container}>
       <GridToolbarContainer>
         <Button
           color='primary'
@@ -115,6 +117,6 @@ export const AddTransactionButton = () => {
           </Button>
         </DialogActions>
       </Dialog>
-    </>
+    </Box>
   );
 };

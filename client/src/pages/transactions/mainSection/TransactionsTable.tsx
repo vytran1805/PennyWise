@@ -83,27 +83,27 @@ export const TransactionsTable = (props: Props) => {
   };
 
   const columns: GridColDef[] = [
-    { field: 'name', headerName: 'Name', minWidth: 70, editable: true },
-    { field: 'date', headerName: 'Date', minWidth: 200, editable: true },
+    { field: 'name', headerName: 'Name', flex: 1, editable: true },
+    { field: 'date', headerName: 'Date', flex: 1, editable: true },
     {
       field: 'description',
       headerName: 'Description',
-      minWidth: 100,
+      flex: 1,
       editable: true,
     },
     {
       field: 'category',
       headerName: 'Category',
-      minWidth: 150,
+      flex: 1,
       editable: true,
     },
-    { field: 'amount', headerName: 'Amount', minWidth: 100, editable: true },
-    { field: 'type', headerName: 'Type', minWidth: 100, editable: true },
+    { field: 'amount', headerName: 'Amount', flex: 1, editable: true },
+    { field: 'type', headerName: 'Type', flex: 1, editable: true },
 
     {
       field: 'actions',
       headerName: 'Actions',
-      width: 200,
+      flex: 1,
       renderCell: (params) => {
         const transactionId = params.row._id;
         return (
@@ -122,7 +122,7 @@ export const TransactionsTable = (props: Props) => {
   ];
 
   return (
-    <Box>
+    <Box sx={{ display: 'flex', width: '100%' }}>
       <DataGrid
         rows={transactions}
         columns={columns}
