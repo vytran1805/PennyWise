@@ -8,7 +8,7 @@ import { HomePage } from '@/pages/HomePage';
 import { NavBar } from '@/global/navbar';
 import { Login } from '@/pages/Login';
 import { Sidebar } from './global/sidebar';
-import { Budgets } from './pages/budgets/Budgets';
+import { Transactions } from './pages/transactions/Transactions';
 
 function App() {
   const isUserLoggedIn = !!localStorage.getItem('token'); //check if user logged in successfully
@@ -30,7 +30,7 @@ function App() {
               {isUserLoggedIn && (
                 <>
                   <Route path='/overview' element={<Overview />} />
-                  <Route path='/budgets' element={<Budgets />} />
+                  <Route path='/transactions' element={<Transactions />} />
                 </>
               )}
             </Routes>

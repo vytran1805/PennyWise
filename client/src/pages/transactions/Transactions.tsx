@@ -22,7 +22,7 @@ const RightContainer = styled(Box)`
   padding: 10px;
 `;
 
-export const Budgets = () => {
+export const Transactions = () => {
   return (
     <Container data-test-id={testIds.budgets.container}>
       <MainContainer data-test-id={testIds.budgets.mainContainer}>
