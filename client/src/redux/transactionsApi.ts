@@ -1,5 +1,5 @@
 import { TransactionData, TransactionsResponse } from './types';
-import { emptySplitApi } from './emptySplitApi';
+import { emptySplitApi } from './emptyApi';
 
 const TRANSACTIONS_URL = 'api/transactions/';
 export const transactionsApi = emptySplitApi.injectEndpoints({

@@ -12,7 +12,7 @@ export const createTransaction = async (req, res) => {
       name,
       description,
       amount,
-      date,
+      date: new Date(),
       category,
       type,
     });

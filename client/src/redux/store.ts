@@ -1,6 +1,6 @@
+import { emptySplitApi } from './emptyApi';
 import { configureStore } from '@reduxjs/toolkit';
 import { transactionsApi } from './transactionsApi';
-import { emptySplitApi } from './emptySplitApi';
 
 /**
  * Create a Redux store using configureStore, specifying the root reducer and extending the middleware stack to include additional middleware related to API handling
