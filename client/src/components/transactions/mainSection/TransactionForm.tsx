@@ -9,6 +9,7 @@ import {
   SelectChangeEvent,
   TextField,
   MenuItem,
+  DialogContent,
 } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -97,11 +98,13 @@ export const TransactionForm = (props: Props) => {
                 )
               }
             >
-              {Object.entries(TransactionType).map(([typeKey, typeValue]) => (
-                <MenuItem key={typeValue} value={typeValue}>
-                  {typeKey}
-                </MenuItem>
-              ))}
+              {Object.entries(TransactionType).map(
+                ([typeKey, typeValue], index) => (
+                  <MenuItem key={index} value={typeValue}>
+                    {typeKey}
+                  </MenuItem>
+                )
+              )}
             </Select>
           </FormControl>
         );
@@ -122,7 +125,7 @@ export const TransactionForm = (props: Props) => {
   };
   return (
     <>
-      {renderFormFields(formData)}
+      <DialogContent>{renderFormFields(formData)}</DialogContent>
       <DialogActions>
         <Button onClick={onClose} color='secondary'>
           Cancel

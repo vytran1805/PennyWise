@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Dialog, DialogContent, DialogTitle, Box } from '@mui/material';
+import { Button, Dialog, DialogTitle, Box } from '@mui/material';
 import { GridToolbarContainer } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
 import { testIds } from '@/pages/transactions/testIds';
@@ -30,9 +30,7 @@ export const AddTransactionButton = () => {
       </GridToolbarContainer>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
         <DialogTitle>Add Transaction</DialogTitle>
-        <DialogContent>
-          <TransactionForm onClose={handleCloseDialog} />
-        </DialogContent>
+        <TransactionForm onClose={handleCloseDialog} />
       </Dialog>
     </Box>
   );

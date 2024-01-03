@@ -3,7 +3,7 @@
  **********************************/
 
 export enum TransactionType {
-  Expenses = 'Expenses',
+  Expenses = 'Expense',
   Income = 'Income',
 }
 /**

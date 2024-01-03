@@ -84,7 +84,7 @@ export const TransactionsTable = (props: Props) => {
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', flex: 1, editable: true },
-    { field: 'date', headerName: 'Date', flex: 1, editable: true },
+    { field: 'date', headerName: 'Date', flex: 2, editable: true },
     {
       field: 'description',
       headerName: 'Description',
