@@ -98,6 +98,8 @@ export const TransactionsTable = (props: Props) => {
       editable: true,
     },
     { field: 'amount', headerName: 'Amount', minWidth: 100, editable: true },
+    { field: 'type', headerName: 'Type', minWidth: 100, editable: true },
+
     {
       field: 'actions',
       headerName: 'Actions',

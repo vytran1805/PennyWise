@@ -7,12 +7,12 @@ import Transaction from '../models/transaction.js';
  */
 export const createTransaction = async (req, res) => {
   try {
-    const { name, description, amount, category, type } = req.body;
+    const { name, description, amount, category, type, date } = req.body;
     const newTransaction = new Transaction({
       name,
       description,
       amount,
-      date: new Date(),
+      date,
       category,
       type,
     });
