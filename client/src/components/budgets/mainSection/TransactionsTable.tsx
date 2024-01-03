@@ -4,12 +4,17 @@ import {
   useUpdateTransactionMutation,
 } from '@/redux/transactionsApi';
 import { TransactionsResponse } from '@/redux/types';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useMemo, useState } from 'react';
 import { Box, Button } from '@mui/material';
 import { AddTransactionButton } from './AddTransactionButton';
-
-export const TransactionsTable = () => {
+type Props = {
+  onTransactionSelected: React.Dispatch<
+    React.SetStateAction<TransactionsResponse | undefined>
+  >;
+};
+export const TransactionsTable = (props: Props) => {
+  const { onTransactionSelected } = props;
   const [transactions, setTransactions] = useState<TransactionsResponse[]>([]);
   const { data: transactionData } = useGetAllTransactionsQuery(); // Fetch transaction data
   console.log(transactionData);
@@ -63,9 +68,18 @@ export const TransactionsTable = () => {
         (transaction) => transaction._id !== _id
       );
       setTransactions(updatedTransactions);
+      onTransactionSelected(undefined);
     } catch (error) {
       console.error('Failed to delete transaction:', error);
     }
+  };
+
+  const handleRowClick = (params: GridRowParams) => {
+    console.log('Clicked row data:', params.row);
+    onTransactionSelected(params.row);
+    const clickedTransactionId = params.row._id;
+    console.log('Clicked transaction ID:', clickedTransactionId);
+    // Perform actions or state updates based on the clicked row data
   };
 
   const columns: GridColDef[] = [
@@ -119,6 +133,7 @@ export const TransactionsTable = () => {
         pageSizeOptions={[5, 10]}
         editMode='row'
         processRowUpdate={handleUpdate}
+        onRowClick={handleRowClick}
       />
     </Box>
   );

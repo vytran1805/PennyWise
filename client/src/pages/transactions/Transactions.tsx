@@ -4,6 +4,8 @@ import { testIds } from '../testIds';
 import { TimelinePicker } from '../../components/budgets/mainSection/TimelinePicker';
 import { RightSection } from '../../components/budgets/rightSection/RightSection';
 import { TransactionsTable } from '../../components/budgets/mainSection/TransactionsTable';
+import { TransactionsResponse } from '@/redux/types';
+import { useState } from 'react';
 
 const Container = styled(Box)`
   display: flex;
@@ -23,14 +25,16 @@ const RightContainer = styled(Box)`
 `;
 
 export const Transactions = () => {
+  const [selectedTransaction, setSelectedTransaction] =
+    useState<TransactionsResponse>();
   return (
     <Container data-test-id={testIds.budgets.container}>
       <MainContainer data-test-id={testIds.budgets.mainContainer}>
         <TimelinePicker />
-        <TransactionsTable />
+        <TransactionsTable onTransactionSelected={setSelectedTransaction} />
       </MainContainer>
       <RightContainer data-test-id={testIds.budgets.rightContainer}>
-        <RightSection />
+        <RightSection transactionDetail={selectedTransaction} />
       </RightContainer>
     </Container>
   );
