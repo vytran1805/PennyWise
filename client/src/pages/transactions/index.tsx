@@ -3,9 +3,9 @@ import { Box } from '@mui/material';
 import { testIds } from './testIds';
 import { TransactionsResponse } from '@/redux/types';
 import { useState } from 'react';
-import { TimelinePicker } from './mainSection/TimelinePicker';
-import { TransactionsTable } from './mainSection/TransactionsTable';
-import { RightSection } from './rightSection/RightSection';
+import { TimelinePicker } from '../../components/transactions/mainSection/TimelinePicker';
+import { TransactionsTable } from '../../components/transactions/mainSection/TransactionsTable';
+import { RightSection } from '../../components/transactions/rightSection/RightSection';
 
 const Container = styled(Box)`
   display: flex;

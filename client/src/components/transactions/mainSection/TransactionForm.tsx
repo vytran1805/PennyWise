@@ -1,41 +1,34 @@
-import { useState } from 'react';
+import { useCreateTransactionMutation } from '@/redux/transactionsApi';
+import { TransactionData, TransactionType } from '@/redux/types';
 import {
   Button,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  TextField,
   DialogActions,
-  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  SelectChangeEvent,
+  TextField,
+  MenuItem,
 } from '@mui/material';
-import { GridToolbarContainer } from '@mui/x-data-grid';
-import AddIcon from '@mui/icons-material/Add';
-import { useCreateTransactionMutation } from '@/redux/transactionsApi';
-import { TransactionData } from '@/redux/types';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { testIds } from '../testIds';
+import React, { useState } from 'react';
 
-export const AddTransactionButton = () => {
-  const [openDialog, setOpenDialog] = useState(false);
+type Props = {
+  onClose: () => void;
+};
+export const TransactionForm = (props: Props) => {
+  const { onClose } = props;
+  const [transactionType, setTransactionType] = useState('');
+  const [createTransaction] = useCreateTransactionMutation();
   const [formData, setFormData] = useState<TransactionData>({
     date: '',
     name: '',
-    type: '',
+    type: undefined,
     description: '',
     amount: 0,
     category: '',
   });
-  const [createTransaction] = useCreateTransactionMutation();
-
-  const handleButtonClick = () => {
-    setOpenDialog(true);
-  };
-
-  const handleCloseDialog = () => {
-    setOpenDialog(false);
-    // Reset form data when closing the dialog
-  };
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
@@ -58,9 +51,16 @@ export const AddTransactionButton = () => {
     }));
   };
 
+  const handleTransactionTypeSelected = (
+    fieldKey: keyof TransactionData,
+    value: string
+  ) => {
+    setTransactionType(value);
+    handleInputChange(fieldKey, value);
+  };
   const handleFormSubmit = async (): Promise<void> => {
     try {
-      handleCloseDialog();
+      onClose();
       const result = await createTransaction({ data: formData });
       console.log({ result });
       window.location.reload();
@@ -69,6 +69,7 @@ export const AddTransactionButton = () => {
       console.error('Failed to add transaction:', error);
     }
   };
+
   const renderFormFields = (formFieldData: TransactionData) => {
     return Object.keys(formFieldData).map((key) => {
       const label = key.charAt(0).toUpperCase() + key.slice(1);
@@ -78,6 +79,31 @@ export const AddTransactionButton = () => {
           <LocalizationProvider dateAdapter={AdapterDateFns} key={key}>
             <DatePicker label='Date' name='date' onChange={handleDateChange} />
           </LocalizationProvider>
+        );
+      }
+      if (key === 'type') {
+        return (
+          <FormControl sx={{ width: '100%' }}>
+            <InputLabel>Type</InputLabel>
+            <Select
+              labelId='demo-simple-select-helper-label'
+              id='demo-simple-select-helper'
+              value={transactionType}
+              label='Type'
+              onChange={(event: SelectChangeEvent) =>
+                handleTransactionTypeSelected(
+                  fieldKey,
+                  event.target.value as string
+                )
+              }
+            >
+              {Object.entries(TransactionType).map(([typeKey, typeValue]) => (
+                <MenuItem key={typeValue} value={typeValue}>
+                  {typeKey}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         );
       }
       return (
@@ -95,28 +121,16 @@ export const AddTransactionButton = () => {
     });
   };
   return (
-    <Box data-test-id={testIds.transactions.mainContainer.container}>
-      <GridToolbarContainer>
-        <Button
-          color='primary'
-          startIcon={<AddIcon />}
-          onClick={handleButtonClick}
-        >
-          Add record
+    <>
+      {renderFormFields(formData)}
+      <DialogActions>
+        <Button onClick={onClose} color='secondary'>
+          Cancel
         </Button>
-      </GridToolbarContainer>
-      <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Add Transaction</DialogTitle>
-        <DialogContent>{renderFormFields(formData)}</DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog} color='secondary'>
-            Cancel
-          </Button>
-          <Button onClick={handleFormSubmit} color='primary'>
-            Add
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+        <Button onClick={handleFormSubmit} color='primary'>
+          Add
+        </Button>
+      </DialogActions>
+    </>
   );
 };

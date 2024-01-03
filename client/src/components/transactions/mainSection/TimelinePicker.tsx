@@ -16,7 +16,6 @@ export const TimelinePicker = () => {
           maxDate={new Date('2023-06-01')}
           value={value}
           onChange={setValue}
-          // renderInput={(params) => <TextField {...params} helperText={null} />}
         />
       </LocalizationProvider>
     </Box>

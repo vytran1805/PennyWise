@@ -2,7 +2,7 @@
  * Identify the type that we need *
  **********************************/
 
-enum TransactionType {
+export enum TransactionType {
   Expenses = 'Expenses',
   Income = 'Income',
 }
@@ -24,7 +24,7 @@ export interface TransactionsResponse {
 export interface TransactionData {
   date?: string;
   name?: string;
-  type?: string;
+  type?: TransactionType;
   description?: string;
   amount?: number;
   category?: string;
