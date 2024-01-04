@@ -4,8 +4,8 @@ import mongoose from 'mongoose';
 import cors from 'cors'; //handle cross origin resource sharing requests so that we can call from different URL
 import dotenv from 'dotenv';
 import authRouter from './routes/authRoute.js';
-import transactionRouter from './routes/transactionRoute.js';
-import { AUTH, TRANSACTIONS } from './routes/routePaths.js'; // Import route paths
+import expensesRouter from './routes/expensesRoute.js';
+import { AUTH, EXPENSES } from './routes/routePaths.js'; // Import route paths
 
 /* CONFIGURATION */
 dotenv.config();
@@ -44,7 +44,7 @@ app.use(bodyParser.json());
 /* ROUTES */
 // Authentication
 app.use(AUTH, authRouter);
-app.use(TRANSACTIONS, transactionRouter);
+app.use(EXPENSES, expensesRouter);
 
 // app.post('/register', createUser);
 // GET registered users

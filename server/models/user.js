@@ -19,10 +19,10 @@ const userSchema = new mongoose.Schema({
       required: false,
     },
   ],
-  transaction: [
+  expense: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Transaction',
+      ref: 'Expense',
       required: false,
     },
   ],

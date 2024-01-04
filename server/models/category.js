@@ -3,16 +3,16 @@ import mongoose from 'mongoose';
 const categorySchema = new mongoose.Schema({
   name: { type: String, require: true },
   description: { type: String, require: false },
-  transactions: [
+  expenses: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Transaction',
+      ref: 'Expense',
       required: false,
     },
   ],
   budget: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Transaction',
+    ref: 'Income',
     required: false,
   },
 });
