@@ -1,6 +1,6 @@
 import { emptySplitApi } from './emptyApi';
 import { configureStore } from '@reduxjs/toolkit';
-import { transactionsApi } from './transactionsApi';
+import { expensesApi } from './expensesApi';
 
 /**
  * Create a Redux store using configureStore, specifying the root reducer and extending the middleware stack to include additional middleware related to API handling
@@ -8,5 +8,5 @@ import { transactionsApi } from './transactionsApi';
  */
 export const store = configureStore({
   reducer: { [emptySplitApi.reducerPath]: emptySplitApi.reducer },
-  middleware: (getDefault) => getDefault().concat(transactionsApi.middleware),
+  middleware: (getDefault) => getDefault().concat(expensesApi.middleware),
 });

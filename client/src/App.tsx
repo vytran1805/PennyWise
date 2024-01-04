@@ -7,7 +7,8 @@ import { HomePage } from '@/pages/HomePage';
 import { NavBar } from '@/global/navbar';
 import { Login } from '@/pages/Login';
 import { Sidebar } from './global/sidebar';
-import { Transactions } from './pages/transactions';
+import { Expenses } from './pages/expenses';
+import { Dashboard } from './pages/Dashboard';
 
 function App() {
   const isUserLoggedIn = !!localStorage.getItem('token'); //check if user logged in successfully
@@ -28,8 +29,8 @@ function App() {
               <Route path='/register' element={<Signup />} />
               {isUserLoggedIn && (
                 <>
-                  {/* <Route path='/overview' element={<Overview />} /> */}
-                  <Route path='/transactions' element={<Transactions />} />
+                  <Route path='/dashboard' element={<Dashboard />} />
+                  <Route path='/expenses' element={<Expenses />} />
                 </>
               )}
             </Routes>

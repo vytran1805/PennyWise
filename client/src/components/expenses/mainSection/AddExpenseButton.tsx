@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Button, Dialog, DialogTitle, Box } from '@mui/material';
 import { GridToolbarContainer } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
-import { testIds } from '@/pages/transactions/testIds';
-import { TransactionForm } from './TransactionForm';
+import { testIds } from '@/pages/expenses/testIds';
+import { ExpenseForm } from './ExpenseForm';
 
-export const AddTransactionButton = () => {
+export const AddExpenseButton = () => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const handleButtonClick = () => {
@@ -18,7 +18,7 @@ export const AddTransactionButton = () => {
   };
 
   return (
-    <Box data-test-id={testIds.transactions.mainContainer.container}>
+    <Box data-test-id={testIds.expenses.mainContainer.container}>
       <GridToolbarContainer>
         <Button
           color='primary'
@@ -29,8 +29,8 @@ export const AddTransactionButton = () => {
         </Button>
       </GridToolbarContainer>
       <Dialog open={openDialog} onClose={handleCloseDialog}>
-        <DialogTitle>Add Transaction</DialogTitle>
-        <TransactionForm onClose={handleCloseDialog} />
+        <DialogTitle>Add Expense</DialogTitle>
+        <ExpenseForm onClose={handleCloseDialog} />
       </Dialog>
     </Box>
   );

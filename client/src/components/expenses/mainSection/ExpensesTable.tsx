@@ -1,13 +1,13 @@
 import {
-  useDeleteTransactionMutation,
-  useGetAllTransactionsQuery,
-  useUpdateTransactionMutation,
-} from '@/redux/transactionsApi';
-import { TransactionType, TransactionsResponse } from '@/redux/types';
+  useDeleteExpenseMutation,
+  useGetAllExpensesQuery,
+  useUpdateExpenseMutation,
+} from '@/redux/expensesApi';
+import { ExpenseResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useMemo, useState } from 'react';
 import { IconButton, Typography, useTheme } from '@mui/material';
-import { AddTransactionButton } from './AddTransactionButton';
+import { AddExpenseButton } from './AddExpenseButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
@@ -17,32 +17,30 @@ const Container = styled.div`
   gap: 10px;
 `;
 type Props = {
-  onTransactionSelected: React.Dispatch<
-    React.SetStateAction<TransactionsResponse | undefined>
+  onExpenseSelected: React.Dispatch<
+    React.SetStateAction<ExpenseResponse | undefined>
   >;
 };
-export const TransactionsTable = (props: Props) => {
-  const { onTransactionSelected } = props;
+export const ExpensesTable = (props: Props) => {
+  const { onExpenseSelected } = props;
   const { palette } = useTheme();
-  const [transactions, setTransactions] = useState<TransactionsResponse[]>([]);
-  const { data: transactionData } = useGetAllTransactionsQuery(); // Fetch transaction data
+  const [expenses, setExpenses] = useState<ExpenseResponse[]>([]);
+  const { data: expenseData } = useGetAllExpensesQuery(); // Fetch expense data
 
-  // Destructuring mutation hooks for deleting and updating transactions
-  const [deleteTransaction] = useDeleteTransactionMutation();
-  const [updateTransaction] = useUpdateTransactionMutation();
+  // Destructuring mutation hooks for deleting and updating expenses
+  const [deleteExpense] = useDeleteExpenseMutation();
+  const [updateExpense] = useUpdateExpenseMutation();
 
   const getAccountBalance = () => {
     // NOTE: use forEach
     // let balance = 0;
-    // transactions?.forEach((transaction) => {
-    //   balance += transaction.amount;
+    // expenses?.forEach((expense) => {
+    //   balance += expense.amount;
     // });
 
     /* use reduce */
-    const balance = transactions.reduce((acc, transaction) => {
-      return transaction.type === TransactionType.Expenses
-        ? acc + transaction.amount
-        : acc - transaction.amount;
+    const balance = expenses.reduce((acc, expense) => {
+      return acc + expense.amount;
     }, 0);
     return numberToCurrency(balance);
   };
@@ -52,54 +50,50 @@ export const TransactionsTable = (props: Props) => {
    * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
    */
   useMemo(() => {
-    if (transactionData) {
-      const transactionRows = transactionData.map(
-        (data: TransactionsResponse) => ({
-          id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
-          ...data,
-        })
-      );
-      setTransactions(transactionRows);
+    if (expenseData) {
+      const expenseRows = expenseData.map((data: ExpenseResponse) => ({
+        id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
+        ...data,
+      }));
+      setExpenses(expenseRows);
       // setAccountBalance(getAccountBalance());
     }
-  }, [transactionData]);
+  }, [expenseData]);
 
   const handleUpdate = async (
-    updatedData: TransactionsResponse
-  ): Promise<TransactionsResponse> => {
+    updatedData: ExpenseResponse
+  ): Promise<ExpenseResponse> => {
     try {
-      const result = await updateTransaction({ data: updatedData });
+      const result = await updateExpense({ data: updatedData });
 
-      const updatedTransactions = transactions.map((transaction) =>
-        transaction._id === updatedData._id ? updatedData : transaction
+      const updatedExpenses = expenses.map((expense) =>
+        expense._id === updatedData._id ? updatedData : expense
       );
 
-      setTransactions(updatedTransactions);
+      setExpenses(updatedExpenses);
       return updatedData; // Return the updated data
     } catch (error) {
-      console.error('Failed to update transaction:', error);
+      console.error('Failed to update expense:', error);
     }
-    throw new Error('Failed to update transaction'); // Throw an error if the update fails
+    throw new Error('Failed to update expense'); // Throw an error if the update fails
   };
 
   const handleDelete = async (_id: string) => {
     try {
-      await deleteTransaction({ _id });
-      const updatedTransactions = transactions.filter(
-        (transaction) => transaction._id !== _id
-      );
-      setTransactions(updatedTransactions);
-      onTransactionSelected(undefined);
+      await deleteExpense({ _id });
+      const updatedExpenses = expenses.filter((expense) => expense._id !== _id);
+      setExpenses(updatedExpenses);
+      onExpenseSelected(undefined);
     } catch (error) {
-      console.error('Failed to delete transaction:', error);
+      console.error('Failed to delete expense:', error);
     }
   };
 
   const handleRowClick = (params: GridRowParams) => {
     console.log('Clicked row data:', params.row);
-    onTransactionSelected(params.row);
-    const clickedTransactionId = params.row._id;
-    console.log('Clicked transaction ID:', clickedTransactionId);
+    onExpenseSelected(params.row);
+    const clickedExpenseId = params.row._id;
+    console.log('Clicked expense ID:', clickedExpenseId);
     // Perform actions or state updates based on the clicked row data
   };
 
@@ -125,19 +119,17 @@ export const TransactionsTable = (props: Props) => {
       editable: true,
       valueFormatter: ({ value }) => numberToCurrency(value), // Format amount as currency (CAD)
     },
-    { field: 'type', headerName: 'Type', flex: 1, editable: true },
-
     {
       field: 'actions',
       headerName: 'Actions',
       flex: 1,
       renderCell: (params) => {
-        const transactionId = params.row._id;
+        const expenseId = params.row._id;
         return (
           <IconButton
             onClick={() => {
-              transactionId && handleDelete(transactionId);
-              console.log({ transactionId });
+              expenseId && handleDelete(expenseId);
+              console.log({ expenseId });
             }}
           >
             <DeleteIcon />
@@ -153,14 +145,14 @@ export const TransactionsTable = (props: Props) => {
         Account balance: {getAccountBalance()}
       </Typography>
       <DataGrid
-        rows={transactions}
+        rows={expenses}
         columns={columns}
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },
           },
         }}
-        slots={{ toolbar: () => <AddTransactionButton /> }}
+        slots={{ toolbar: () => <AddExpenseButton /> }}
         pageSizeOptions={[5, 10]}
         editMode='row'
         processRowUpdate={handleUpdate}

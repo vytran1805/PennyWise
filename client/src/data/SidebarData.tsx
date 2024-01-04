@@ -9,7 +9,7 @@ export const sidebarItems = [
     icon: <DashboardRoundedIcon />,
   },
   {
-    title: 'Transactions',
+    title: 'Expenses',
     icon: <PaymentsRoundedIcon />,
   },
   {
