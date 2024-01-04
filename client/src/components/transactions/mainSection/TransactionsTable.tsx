@@ -6,8 +6,9 @@ import {
 import { TransactionsResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useMemo, useState } from 'react';
-import { Box, Button } from '@mui/material';
+import { Box, Button, IconButton } from '@mui/material';
 import { AddTransactionButton } from './AddTransactionButton';
+import DeleteIcon from '@mui/icons-material/Delete';
 type Props = {
   onTransactionSelected: React.Dispatch<
     React.SetStateAction<TransactionsResponse | undefined>
@@ -107,15 +108,14 @@ export const TransactionsTable = (props: Props) => {
       renderCell: (params) => {
         const transactionId = params.row._id;
         return (
-          <Button
+          <IconButton
             onClick={() => {
               transactionId && handleDelete(transactionId);
               console.log({ transactionId });
             }}
-            variant='contained'
           >
-            Delete
-          </Button>
+            <DeleteIcon />
+          </IconButton>
         );
       },
     },

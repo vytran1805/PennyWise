@@ -1,24 +1,32 @@
 import SavingsOutlinedIcon from '@mui/icons-material/SavingsOutlined';
+import DashboardRoundedIcon from '@mui/icons-material/DashboardRounded';
+import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import LocalAtmRoundedIcon from '@mui/icons-material/LocalAtmRounded';
 export const sidebarItems = [
   {
-    title: 'Overview',
-    icon: <SavingsOutlinedIcon />,
+    title: 'Dashboard',
+    icon: <DashboardRoundedIcon />,
   },
   {
     title: 'Transactions',
-    icon: <SavingsOutlinedIcon />,
+    icon: <PaymentsRoundedIcon />,
   },
   {
     title: 'Budgets',
     icon: <SavingsOutlinedIcon />,
   },
+  // {
+  //   title: 'Goals',
+  //   icon: <SavingsOutlinedIcon />,
+  // },
   {
-    title: 'Goals',
-    icon: <SavingsOutlinedIcon />,
+    title: 'Income',
+    icon: <LocalAtmRoundedIcon />,
   },
   {
     title: 'Settings',
-    icon: <SavingsOutlinedIcon />,
+    icon: <SettingsRoundedIcon />,
   },
   // {
   //   title: 'Budget6',
