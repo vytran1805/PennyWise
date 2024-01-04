@@ -3,12 +3,19 @@ import {
   useGetAllTransactionsQuery,
   useUpdateTransactionMutation,
 } from '@/redux/transactionsApi';
-import { TransactionsResponse } from '@/redux/types';
+import { TransactionType, TransactionsResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useMemo, useState } from 'react';
-import { Box, Button, IconButton } from '@mui/material';
+import { IconButton, Typography, useTheme } from '@mui/material';
 import { AddTransactionButton } from './AddTransactionButton';
 import DeleteIcon from '@mui/icons-material/Delete';
+import styled from 'styled-components';
+import { numberToCurrency } from '@/utils/currencyUtils';
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
 type Props = {
   onTransactionSelected: React.Dispatch<
     React.SetStateAction<TransactionsResponse | undefined>
@@ -16,14 +23,29 @@ type Props = {
 };
 export const TransactionsTable = (props: Props) => {
   const { onTransactionSelected } = props;
+  const { palette } = useTheme();
   const [transactions, setTransactions] = useState<TransactionsResponse[]>([]);
   const { data: transactionData } = useGetAllTransactionsQuery(); // Fetch transaction data
-  console.log(transactionData);
 
   // Destructuring mutation hooks for deleting and updating transactions
   const [deleteTransaction] = useDeleteTransactionMutation();
   const [updateTransaction] = useUpdateTransactionMutation();
 
+  const getAccountBalance = () => {
+    // NOTE: use forEach
+    // let balance = 0;
+    // transactions?.forEach((transaction) => {
+    //   balance += transaction.amount;
+    // });
+
+    /* use reduce */
+    const balance = transactions.reduce((acc, transaction) => {
+      return transaction.type === TransactionType.Expenses
+        ? acc + transaction.amount
+        : acc - transaction.amount;
+    }, 0);
+    return numberToCurrency(balance);
+  };
   /**
    * Prepare row records for the table using useMemo()
    * @FirstParam call back function
@@ -38,7 +60,7 @@ export const TransactionsTable = (props: Props) => {
         })
       );
       setTransactions(transactionRows);
-      console.log({ transactionRows });
+      // setAccountBalance(getAccountBalance());
     }
   }, [transactionData]);
 
@@ -47,7 +69,6 @@ export const TransactionsTable = (props: Props) => {
   ): Promise<TransactionsResponse> => {
     try {
       const result = await updateTransaction({ data: updatedData });
-      console.log({ result });
 
       const updatedTransactions = transactions.map((transaction) =>
         transaction._id === updatedData._id ? updatedData : transaction
@@ -64,7 +85,6 @@ export const TransactionsTable = (props: Props) => {
   const handleDelete = async (_id: string) => {
     try {
       await deleteTransaction({ _id });
-      console.log('delete ', _id);
       const updatedTransactions = transactions.filter(
         (transaction) => transaction._id !== _id
       );
@@ -98,7 +118,13 @@ export const TransactionsTable = (props: Props) => {
       flex: 1,
       editable: true,
     },
-    { field: 'amount', headerName: 'Amount', flex: 1, editable: true },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      flex: 1,
+      editable: true,
+      valueFormatter: ({ value }) => numberToCurrency(value), // Format amount as currency (CAD)
+    },
     { field: 'type', headerName: 'Type', flex: 1, editable: true },
 
     {
@@ -122,7 +148,10 @@ export const TransactionsTable = (props: Props) => {
   ];
 
   return (
-    <Box sx={{ display: 'flex', width: '100%' }}>
+    <Container>
+      <Typography variant='h2' color={palette.primary[700]}>
+        Account balance: {getAccountBalance()}
+      </Typography>
       <DataGrid
         rows={transactions}
         columns={columns}
@@ -137,6 +166,6 @@ export const TransactionsTable = (props: Props) => {
         processRowUpdate={handleUpdate}
         onRowClick={handleRowClick}
       />
-    </Box>
+    </Container>
   );
 };
