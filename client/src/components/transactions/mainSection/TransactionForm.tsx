@@ -72,23 +72,25 @@ export const TransactionForm = (props: Props) => {
   };
 
   const renderFormFields = (formFieldData: TransactionData) => {
-    return Object.keys(formFieldData).map((key) => {
+    return Object.keys(formFieldData).map((key, index) => {
       const label = key.charAt(0).toUpperCase() + key.slice(1);
       const fieldKey = key as keyof TransactionData;
+      const uniqueKey = `${key}-${index}`;
       if (key === 'date') {
         return (
-          <LocalizationProvider dateAdapter={AdapterDateFns} key={key}>
+          <LocalizationProvider key={uniqueKey} dateAdapter={AdapterDateFns}>
             <DatePicker label='Date' name='date' onChange={handleDateChange} />
           </LocalizationProvider>
         );
       }
       if (key === 'type') {
         return (
-          <FormControl sx={{ width: '100%' }}>
+          <FormControl key={uniqueKey} sx={{ width: '100%' }}>
             <InputLabel>Type</InputLabel>
             <Select
               labelId='demo-simple-select-helper-label'
               id='demo-simple-select-helper'
+              name={key}
               value={transactionType}
               label='Type'
               onChange={(event: SelectChangeEvent) =>
@@ -111,7 +113,9 @@ export const TransactionForm = (props: Props) => {
       }
       return (
         <TextField
-          key={key}
+          id={key}
+          name={key}
+          key={uniqueKey}
           label={label} // Capitalize the first letter
           value={formFieldData[fieldKey] || ''} // Explicitly tells TS that the key belongs to the group of properties from TransactionData interface
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
