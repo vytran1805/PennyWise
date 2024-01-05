@@ -31,20 +31,20 @@ export const ExpensesTable = (props: Props) => {
   const [deleteExpense] = useDeleteExpenseMutation();
   const [updateExpense] = useUpdateExpenseMutation();
 
-  const getAccountBalance = () => {
+  const getTotalExpenses = () => {
     // NOTE: use forEach
-    // let balance = 0;
+    // let totalExpenses = 0;
     // expenses?.forEach((expense) => {
     //   console.log(typeof expense.amount);
 
-    //   balance += expense.amount;
+    //   totalExpenses += expense.amount;
     // });
 
     /* use reduce */
-    const balance = expenses.reduce((acc, expense) => {
+    const totalExpenses = expenses.reduce((acc, expense) => {
       return Number(acc) + Number(expense.amount);
     }, 0);
-    return numberToCurrency(balance);
+    return numberToCurrency(totalExpenses);
   };
   /**
    * Prepare row records for the table using useMemo()
@@ -58,7 +58,7 @@ export const ExpensesTable = (props: Props) => {
         ...data,
       }));
       setExpenses(expenseRows);
-      // setAccountBalance(getAccountBalance());
+      // setAccountBalance(getTotalExpenses());
     }
   }, [expensesData]);
 
@@ -144,7 +144,7 @@ export const ExpensesTable = (props: Props) => {
   return (
     <Container>
       <Typography variant='h2' color={palette.primary[700]}>
-        Account balance: {getAccountBalance()}
+        Total expenses: {getTotalExpenses()}
       </Typography>
       <DataGrid
         rows={expenses}

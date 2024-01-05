@@ -31,20 +31,20 @@ export const IncomesTable = (props: Props) => {
   const [deleteIncome] = useDeleteIncomeMutation();
   const [updateIncome] = useUpdateIncomeMutation();
 
-  const getAccountBalance = () => {
+  const getTotalIncome = () => {
     // NOTE: use forEach
-    // let balance = 0;
+    // let totalIncome = 0;
     // incomes?.forEach((income) => {
     //   console.log(typeof income.amount);
 
-    //   balance += income.amount;
+    //   totalIncome += income.amount;
     // });
 
     /* use reduce */
-    const balance = incomes.reduce((acc, income) => {
+    const totalIncome = incomes.reduce((acc, income) => {
       return Number(acc) + Number(income.amount);
     }, 0);
-    return numberToCurrency(balance);
+    return numberToCurrency(totalIncome);
   };
   /**
    * Prepare row records for the table using useMemo()
@@ -58,7 +58,7 @@ export const IncomesTable = (props: Props) => {
         ...data,
       }));
       setIncomes(incomeRows);
-      // setAccountBalance(getAccountBalance());
+      // setAccountBalance(getTotalIncome());
     }
   }, [incomesData]);
 
@@ -144,7 +144,7 @@ export const IncomesTable = (props: Props) => {
   return (
     <Container>
       <Typography variant='h2' color={palette.primary[700]}>
-        Account balance: {getAccountBalance()}
+        Total Income: {getTotalIncome()}
       </Typography>
       <DataGrid
         rows={incomes}
