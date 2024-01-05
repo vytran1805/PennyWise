@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
 // define structure of User database
 const incomeSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: { type: String, required: true, unique: true },
-  amount: { type: Number, required: true },
-  date: { type: mongoose.Schema.Types.Date, required: true },
+  name: { type: String, require: [true, 'Name is required'] },
+  description: { type: String, require: false },
+  amount: { type: Number, require: [true, 'Amount is required'] },
+  date: { type: String, require: false },
+  category: { type: String, required: [true, 'Category is required'] },
 });
 
 // take the schema above and put it inside the Income model
