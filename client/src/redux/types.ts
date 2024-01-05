@@ -27,3 +27,21 @@ export interface ExpenseData {
   amount?: number;
   category?: string;
 }
+
+export interface IncomeResponse {
+  _id: string;
+  name: string;
+  amount: number;
+  date: string;
+  category: string;
+  description: string;
+  __v: number;
+}
+
+export interface IncomeData {
+  date?: string;
+  name?: string;
+  description?: string;
+  amount?: number;
+  category?: string;
+}

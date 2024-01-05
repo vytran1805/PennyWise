@@ -9,6 +9,7 @@ import { Login } from '@/pages/Login';
 import { Sidebar } from './global/sidebar';
 import { Expenses } from './pages/expenses';
 import { Dashboard } from './pages/Dashboard';
+import { Incomes } from './pages/incomes';
 
 function App() {
   const isUserLoggedIn = !!localStorage.getItem('token'); //check if user logged in successfully
@@ -31,6 +32,7 @@ function App() {
                 <>
                   <Route path='/dashboard' element={<Dashboard />} />
                   <Route path='/expenses' element={<Expenses />} />
+                  <Route path='/incomes' element={<Incomes />} />
                 </>
               )}
             </Routes>

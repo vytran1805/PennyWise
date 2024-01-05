@@ -21,7 +21,7 @@ export const sidebarItems = [
   //   icon: <SavingsOutlinedIcon />,
   // },
   {
-    title: 'Income',
+    title: 'Incomes',
     icon: <LocalAtmRoundedIcon />,
   },
   {

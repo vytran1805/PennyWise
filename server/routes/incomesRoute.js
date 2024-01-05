@@ -9,10 +9,10 @@ import {
 const incomesRouter = express.Router();
 
 // incomeRouter
-//   .route('/income')
+//   .route('/incomes')
 //   .get(getAllIncomes)
 //   .post(createIncome);
-// incomeRouter.route('/income').post(logUserIn);
+// incomeRouter.route('/incomes').post(logUserIn);
 incomesRouter.post('/', createIncome);
 incomesRouter.get('/', getAllIncomes);
 incomesRouter.patch('/', updateIncome);
