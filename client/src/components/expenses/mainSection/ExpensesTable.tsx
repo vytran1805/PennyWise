@@ -25,7 +25,7 @@ export const ExpensesTable = (props: Props) => {
   const { onExpenseSelected } = props;
   const { palette } = useTheme();
   const [expenses, setExpenses] = useState<ExpenseResponse[]>([]);
-  const { data: expenseData } = useGetAllExpensesQuery(); // Fetch expense data
+  const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
 
   // Destructuring mutation hooks for deleting and updating expenses
   const [deleteExpense] = useDeleteExpenseMutation();
@@ -35,12 +35,14 @@ export const ExpensesTable = (props: Props) => {
     // NOTE: use forEach
     // let balance = 0;
     // expenses?.forEach((expense) => {
+    //   console.log(typeof expense.amount);
+
     //   balance += expense.amount;
     // });
 
     /* use reduce */
     const balance = expenses.reduce((acc, expense) => {
-      return acc + expense.amount;
+      return Number(acc) + Number(expense.amount);
     }, 0);
     return numberToCurrency(balance);
   };
@@ -50,21 +52,21 @@ export const ExpensesTable = (props: Props) => {
    * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
    */
   useMemo(() => {
-    if (expenseData) {
-      const expenseRows = expenseData.map((data: ExpenseResponse) => ({
+    if (expensesData) {
+      const expenseRows = expensesData.map((data: ExpenseResponse) => ({
         id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
         ...data,
       }));
       setExpenses(expenseRows);
       // setAccountBalance(getAccountBalance());
     }
-  }, [expenseData]);
+  }, [expensesData]);
 
   const handleUpdate = async (
     updatedData: ExpenseResponse
   ): Promise<ExpenseResponse> => {
     try {
-      const result = await updateExpense({ data: updatedData });
+      await updateExpense({ data: updatedData });
 
       const updatedExpenses = expenses.map((expense) =>
         expense._id === updatedData._id ? updatedData : expense
