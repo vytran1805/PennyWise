@@ -14,14 +14,14 @@ export interface ExpenseResponse {
   _id: string;
   name: string;
   amount: number;
-  date: string;
+  date: Date;
   category: string;
   description: string;
   __v: number;
 }
 
 export interface ExpenseData {
-  date?: string;
+  date?: Date;
   name?: string;
   description?: string;
   amount?: number;
@@ -32,14 +32,14 @@ export interface IncomeResponse {
   _id: string;
   name: string;
   amount: number;
-  date: string;
+  date: Date;
   category: string;
   description: string;
   __v: number;
 }
 
 export interface IncomeData {
-  date?: string;
+  date?: Date;
   name?: string;
   description?: string;
   amount?: number;
