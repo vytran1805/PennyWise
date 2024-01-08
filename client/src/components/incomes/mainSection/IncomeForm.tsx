@@ -1,5 +1,5 @@
 import { useCreateIncomeMutation } from '@/redux/incomesApi';
-import { IncomeData } from '@/redux/types';
+import { ExpenseData } from '@/redux/types';
 import { Button, DialogActions, TextField, DialogContent } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -10,9 +10,9 @@ type Props = {
 };
 export const IncomeForm = (props: Props) => {
   const { onClose } = props;
-  const [createIncome] = useCreateIncomeMutation();
-  const [formData, setFormData] = useState<IncomeData>({
-    date: '',
+  const [createExpense] = useCreateIncomeMutation();
+  const [formData, setFormData] = useState<ExpenseData>({
+    date: undefined,
     name: '',
     description: '',
     amount: 0,
@@ -25,13 +25,13 @@ export const IncomeForm = (props: Props) => {
 
       setFormData((prevFormData) => ({
         ...prevFormData,
-        date: date.toDateString(), // Returns Date as a string value (without timezone)
+        date: date, // Returns Date as a string value (without timezone)
       }));
     }
   };
 
   const handleInputChange = (
-    fieldKey: keyof IncomeData, // Instead of getting the key directly from the `formData` obj like before, pass in the field key is needed to manage the state for each field correctly
+    fieldKey: keyof ExpenseData, // Instead of getting the key directly from the `formData` obj like before, pass in the field key is needed to manage the state for each field correctly
     value: string | number
   ) => {
     setFormData((prevState) => ({
@@ -43,7 +43,7 @@ export const IncomeForm = (props: Props) => {
   const handleFormSubmit = async (): Promise<void> => {
     try {
       onClose();
-      const result = await createIncome({ data: formData });
+      const result = await createExpense({ data: formData });
       console.log({ result });
       window.location.reload();
       console.log(result);
@@ -52,10 +52,10 @@ export const IncomeForm = (props: Props) => {
     }
   };
 
-  const renderFormFields = (formFieldData: IncomeData) => {
+  const renderFormFields = (formFieldData: ExpenseData) => {
     return Object.keys(formFieldData).map((key, index) => {
       const label = key.charAt(0).toUpperCase() + key.slice(1);
-      const fieldKey = key as keyof IncomeData;
+      const fieldKey = key as keyof ExpenseData;
       const uniqueKey = `${key}-${index}`;
 
       if (key === 'date') {
@@ -72,7 +72,7 @@ export const IncomeForm = (props: Props) => {
           name={key}
           key={uniqueKey}
           label={label} // Capitalize the first letter
-          value={formFieldData[fieldKey] || ''} // Explicitly tells TS that the key belongs to the group of properties from IncomeData interface
+          value={formFieldData[fieldKey] || ''} // Explicitly tells TS that the key belongs to the group of properties from ExpenseData interface
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleInputChange(fieldKey, event.target.value)
           }

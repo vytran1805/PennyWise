@@ -8,7 +8,7 @@ import { NavBar } from '@/global/navbar';
 import { Login } from '@/pages/Login';
 import { Sidebar } from './global/sidebar';
 import { Expenses } from './pages/expenses';
-import { Dashboard } from './pages/Dashboard';
+import { Dashboard } from './pages/dashboard';
 import { Incomes } from './pages/incomes';
 
 function App() {
