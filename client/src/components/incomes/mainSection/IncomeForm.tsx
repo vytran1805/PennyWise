@@ -1,5 +1,5 @@
 import { useCreateIncomeMutation } from '@/redux/incomesApi';
-import { ExpenseData } from '@/redux/types';
+import { TransactionData } from '@/redux/types';
 import { Button, DialogActions, TextField, DialogContent } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -11,7 +11,7 @@ type Props = {
 export const IncomeForm = (props: Props) => {
   const { onClose } = props;
   const [createExpense] = useCreateIncomeMutation();
-  const [formData, setFormData] = useState<ExpenseData>({
+  const [formData, setFormData] = useState<TransactionData>({
     date: undefined,
     name: '',
     description: '',
@@ -31,7 +31,7 @@ export const IncomeForm = (props: Props) => {
   };
 
   const handleInputChange = (
-    fieldKey: keyof ExpenseData, // Instead of getting the key directly from the `formData` obj like before, pass in the field key is needed to manage the state for each field correctly
+    fieldKey: keyof TransactionData, // Instead of getting the key directly from the `formData` obj like before, pass in the field key is needed to manage the state for each field correctly
     value: string | number
   ) => {
     setFormData((prevState) => ({
@@ -52,10 +52,10 @@ export const IncomeForm = (props: Props) => {
     }
   };
 
-  const renderFormFields = (formFieldData: ExpenseData) => {
+  const renderFormFields = (formFieldData: TransactionData) => {
     return Object.keys(formFieldData).map((key, index) => {
       const label = key.charAt(0).toUpperCase() + key.slice(1);
-      const fieldKey = key as keyof ExpenseData;
+      const fieldKey = key as keyof TransactionData;
       const uniqueKey = `${key}-${index}`;
 
       if (key === 'date') {
@@ -72,7 +72,7 @@ export const IncomeForm = (props: Props) => {
           name={key}
           key={uniqueKey}
           label={label} // Capitalize the first letter
-          value={formFieldData[fieldKey] || ''} // Explicitly tells TS that the key belongs to the group of properties from ExpenseData interface
+          value={formFieldData[fieldKey] || ''} // Explicitly tells TS that the key belongs to the group of properties from TransactionData interface
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
             handleInputChange(fieldKey, event.target.value)
           }

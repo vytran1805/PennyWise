@@ -1,8 +1,8 @@
-import { ExpenseData, ExpenseResponse } from '@/redux/types';
+import { TransactionData, TransactionResponse } from '@/redux/types';
 import { List, ListItem } from '@mui/material';
 
 type Props = {
-  expenseDetail?: ExpenseResponse;
+  expenseDetail?: TransactionResponse;
 };
 export const RightSection = (props: Props) => {
   const { expenseDetail } = props;
@@ -18,7 +18,7 @@ export const RightSection = (props: Props) => {
       {filteredKeys.map((key) => (
         <ListItem key={key}>
           <strong>{key}: </strong>
-          {payload[key as keyof ExpenseData]}
+          {payload[key as keyof TransactionData]}
         </ListItem>
       ))}
     </List>

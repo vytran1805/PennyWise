@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { Box } from '@mui/material';
 import { testIds } from './testIds';
-import { ExpenseResponse } from '@/redux/types';
+import { TransactionResponse } from '@/redux/types';
 import { useState } from 'react';
 import { TimelinePicker } from '@/components/expenses/mainSection/TimelinePicker';
 import { ExpensesTable } from '@/components/expenses/mainSection/ExpensesTable';
@@ -26,7 +26,7 @@ const RightContainer = styled(Box)`
 `;
 
 export const Expenses = () => {
-  const [selectedExpense, setSelectedExpense] = useState<ExpenseResponse>();
+  const [selectedExpense, setSelectedExpense] = useState<TransactionResponse>();
   return (
     <Container data-test-id={testIds.expenses.container}>
       <MainContainer data-test-id={testIds.expenses.mainContainer.container}>

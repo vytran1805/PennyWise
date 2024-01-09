@@ -3,7 +3,7 @@ import {
   useGetAllExpensesQuery,
   useUpdateExpenseMutation,
 } from '@/redux/expensesApi';
-import { ExpenseResponse } from '@/redux/types';
+import { TransactionResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useEffect, useMemo, useState } from 'react';
 import { IconButton, Typography, useTheme } from '@mui/material';
@@ -19,13 +19,13 @@ const Container = styled.div`
 `;
 type Props = {
   onExpenseSelected: React.Dispatch<
-    React.SetStateAction<ExpenseResponse | undefined>
+    React.SetStateAction<TransactionResponse | undefined>
   >;
 };
 export const ExpensesTable = (props: Props) => {
   const { onExpenseSelected } = props;
   const { palette } = useTheme();
-  const [expenses, setExpenses] = useState<ExpenseResponse[]>([]);
+  const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
   const { data: expensesData, refetch } = useGetAllExpensesQuery(); // Fetch expense data
 
   // Destructuring mutation hooks for deleting and updating expenses
@@ -54,7 +54,7 @@ export const ExpensesTable = (props: Props) => {
    */
   useEffect(() => {
     if (expensesData) {
-      const expenseRows = expensesData.map((data: ExpenseResponse) => ({
+      const expenseRows = expensesData.map((data: TransactionResponse) => ({
         id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
         ...data,
       }));
@@ -66,8 +66,8 @@ export const ExpensesTable = (props: Props) => {
   }, [expensesData]);
 
   const handleUpdate = async (
-    updatedData: ExpenseResponse
-  ): Promise<ExpenseResponse> => {
+    updatedData: TransactionResponse
+  ): Promise<TransactionResponse> => {
     try {
       await updateExpense({ data: updatedData });
 

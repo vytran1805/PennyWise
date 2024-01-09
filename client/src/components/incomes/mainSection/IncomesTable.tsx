@@ -3,7 +3,7 @@ import {
   useGetAllIncomesQuery,
   useUpdateIncomeMutation,
 } from '@/redux/incomesApi';
-import { IncomeResponse } from '@/redux/types';
+import { TransactionResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
 import { IconButton, Typography, useTheme } from '@mui/material';
@@ -19,13 +19,13 @@ const Container = styled.div`
 `;
 type Props = {
   onIncomeSelected: React.Dispatch<
-    React.SetStateAction<IncomeResponse | undefined>
+    React.SetStateAction<TransactionResponse | undefined>
   >;
 };
 export const IncomesTable = (props: Props) => {
   const { onIncomeSelected } = props;
   const { palette } = useTheme();
-  const [incomes, setIncomes] = useState<IncomeResponse[]>([]);
+  const [incomes, setIncomes] = useState<TransactionResponse[]>([]);
   const {
     data: incomesData,
     isLoading,
@@ -64,7 +64,7 @@ export const IncomesTable = (props: Props) => {
   // Prepare row records for the table
   useEffect(() => {
     if (incomesData) {
-      const incomeRows = incomesData.map((data: IncomeResponse) => ({
+      const incomeRows = incomesData.map((data: TransactionResponse) => ({
         id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
         ...data,
       }));
@@ -74,8 +74,8 @@ export const IncomesTable = (props: Props) => {
   }, [incomesData]);
 
   const handleUpdate = async (
-    updatedData: IncomeResponse
-  ): Promise<IncomeResponse> => {
+    updatedData: TransactionResponse
+  ): Promise<TransactionResponse> => {
     try {
       await updateIncome({ data: updatedData });
 
