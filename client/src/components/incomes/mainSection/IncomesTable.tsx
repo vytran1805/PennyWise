@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
 import { dateFormat } from '@/utils/dateUtils';
+import { getTotalAmount } from '@/utils/totalCalculatorUtils';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,30 +37,6 @@ export const IncomesTable = (props: Props) => {
   // Destructuring mutation hooks for deleting and updating incomes
   const [deleteIncome] = useDeleteIncomeMutation();
   const [updateIncome] = useUpdateIncomeMutation();
-
-  const getTotalIncome = () => {
-    // NOTE: use forEach
-    // let totalIncome = 0;
-    // incomes?.forEach((income) => {
-    //   console.log(typeof income.amount);
-
-    //   totalIncome += income.amount;
-    // });
-
-    /* use reduce */
-    const totalIncome = incomes.reduce((acc, income) => {
-      return Number(acc) + Number(income.amount);
-    }, 0);
-    return numberToCurrency(totalIncome);
-  };
-
-  // useEffect(() => {
-  // }, [refetch]);
-  /**
-   * Prepare row records for the table using useMemo()
-   * @FirstParam call back function
-   * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
-   */
 
   // Prepare row records for the table
   useEffect(() => {
@@ -115,6 +92,7 @@ export const IncomesTable = (props: Props) => {
     {
       field: 'date',
       headerName: 'Date',
+      type: 'Date',
       flex: 2,
       editable: true,
       valueFormatter: ({ value }) => dateFormat(value),
@@ -134,6 +112,7 @@ export const IncomesTable = (props: Props) => {
     {
       field: 'amount',
       headerName: 'Amount',
+      type: 'number',
       flex: 1,
       editable: true,
       valueFormatter: ({ value }) => numberToCurrency(value), // Format amount as currency (CAD)
@@ -161,7 +140,7 @@ export const IncomesTable = (props: Props) => {
   return (
     <Container>
       <Typography variant='h2' color={palette.primary[700]}>
-        Total Income: {getTotalIncome()}
+        Total Income: {getTotalAmount(incomes)}
       </Typography>
       <DataGrid
         rows={incomes}

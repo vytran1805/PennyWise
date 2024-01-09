@@ -12,6 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
 import { dateFormat } from '@/utils/dateUtils';
+import { getTotalAmount } from '@/utils/totalCalculatorUtils';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,21 +33,6 @@ export const ExpensesTable = (props: Props) => {
   const [deleteExpense] = useDeleteExpenseMutation();
   const [updateExpense] = useUpdateExpenseMutation();
 
-  const getTotalExpenses = () => {
-    // NOTE: use forEach
-    // let totalExpenses = 0;
-    // expenses?.forEach((expense) => {
-    //   console.log(typeof expense.amount);
-
-    //   totalExpenses += expense.amount;
-    // });
-
-    /* use reduce */
-    const totalExpenses = expenses.reduce((acc, expense) => {
-      return Number(acc) + Number(expense.amount);
-    }, 0);
-    return numberToCurrency(totalExpenses);
-  };
   /**
    * Prepare row records for the table using useMemo()
    * @FirstParam call back function
@@ -153,7 +139,7 @@ export const ExpensesTable = (props: Props) => {
   return (
     <Container>
       <Typography variant='h2' color={palette.primary[700]}>
-        Total expenses: {getTotalExpenses()}
+        Total expenses: {getTotalAmount(expenses)}
       </Typography>
       <DataGrid
         rows={expenses}
