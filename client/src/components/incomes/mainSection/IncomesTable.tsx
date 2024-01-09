@@ -5,12 +5,13 @@ import {
 } from '@/redux/incomesApi';
 import { IncomeResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconButton, Typography, useTheme } from '@mui/material';
 import { AddIncomeButton } from './AddIncomeButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
+import { dateFormat } from '@/utils/dateFormat';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -25,7 +26,12 @@ export const IncomesTable = (props: Props) => {
   const { onIncomeSelected } = props;
   const { palette } = useTheme();
   const [incomes, setIncomes] = useState<IncomeResponse[]>([]);
-  const { data: incomesData } = useGetAllIncomesQuery(); // Fetch income data
+  const {
+    data: incomesData,
+    isLoading,
+    isError,
+    refetch,
+  } = useGetAllIncomesQuery(); // Fetch income data using the query hook
 
   // Destructuring mutation hooks for deleting and updating incomes
   const [deleteIncome] = useDeleteIncomeMutation();
@@ -46,19 +52,24 @@ export const IncomesTable = (props: Props) => {
     }, 0);
     return numberToCurrency(totalIncome);
   };
+
+  // useEffect(() => {
+  // }, [refetch]);
   /**
    * Prepare row records for the table using useMemo()
    * @FirstParam call back function
    * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
    */
-  useMemo(() => {
+
+  // Prepare row records for the table
+  useEffect(() => {
     if (incomesData) {
       const incomeRows = incomesData.map((data: IncomeResponse) => ({
         id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
         ...data,
       }));
+      refetch(); // Refetch incomes when the component mounts or updates
       setIncomes(incomeRows);
-      // setAccountBalance(getTotalIncome());
     }
   }, [incomesData]);
 
@@ -101,7 +112,13 @@ export const IncomesTable = (props: Props) => {
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', flex: 1, editable: true },
-    { field: 'date', headerName: 'Date', flex: 2, editable: true },
+    {
+      field: 'date',
+      headerName: 'Date',
+      flex: 2,
+      editable: true,
+      valueFormatter: ({ value }) => dateFormat(value),
+    },
     {
       field: 'description',
       headerName: 'Description',

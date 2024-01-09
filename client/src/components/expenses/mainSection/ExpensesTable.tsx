@@ -5,7 +5,7 @@ import {
 } from '@/redux/expensesApi';
 import { ExpenseResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { IconButton, Typography, useTheme } from '@mui/material';
 import { AddExpenseButton } from './AddExpenseButton';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -26,7 +26,7 @@ export const ExpensesTable = (props: Props) => {
   const { onExpenseSelected } = props;
   const { palette } = useTheme();
   const [expenses, setExpenses] = useState<ExpenseResponse[]>([]);
-  const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
+  const { data: expensesData, refetch } = useGetAllExpensesQuery(); // Fetch expense data
 
   // Destructuring mutation hooks for deleting and updating expenses
   const [deleteExpense] = useDeleteExpenseMutation();
@@ -52,13 +52,15 @@ export const ExpensesTable = (props: Props) => {
    * @FirstParam call back function
    * @SecondParam a dependency array [data], whenever 'data' changes, the function will be recomputed
    */
-  useMemo(() => {
+  useEffect(() => {
     if (expensesData) {
       const expenseRows = expensesData.map((data: ExpenseResponse) => ({
         id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
         ...data,
       }));
       setExpenses(expenseRows);
+      // TODO: Read RTK docs about this, is there any other ways to update UI in realtime (when switching tabs)
+      refetch(); //re-fetching the data from server
       // setAccountBalance(getTotalExpenses());
     }
   }, [expensesData]);
