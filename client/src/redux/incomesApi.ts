@@ -12,9 +12,15 @@ export const incomesApi = emptySplitApi.injectEndpoints({
         method: 'POST', // Use the appropriate HTTP method (PUT, PATCH, etc.) for updating
         body: data, // Send the updated data to the server
       }),
+      invalidatesTags: ['Incomes'],
     }),
     getAllIncomes: build.query<TransactionResponse[], void>({
       query: () => INCOME_URL,
+      // Generates cache tags for each income item fetched
+      providesTags: (result) =>
+        result ? result.map(({ _id }) => ({ type: 'Incomes', _id })) : [],
+      // For each fetched income, creates a cache tag of type 'Incomes' using the _id
+      // These tags are used for caching and data invalidation purposes
     }),
     deleteIncome: build.mutation<void, { _id: string }>({
       query: ({ _id }) => ({
@@ -22,6 +28,7 @@ export const incomesApi = emptySplitApi.injectEndpoints({
         method: 'DELETE',
         body: { _id },
       }),
+      invalidatesTags: ['Incomes'],
     }),
     updateIncome: build.mutation<void, { data: TransactionResponse }>({
       query: ({ data }) => ({
@@ -29,6 +36,7 @@ export const incomesApi = emptySplitApi.injectEndpoints({
         method: 'PATCH', // Use the appropriate HTTP method (PUT, PATCH, etc.) for updating
         body: { ...data }, // Send the updated data to the server
       }),
+      invalidatesTags: ['Incomes'],
     }),
   }),
 });

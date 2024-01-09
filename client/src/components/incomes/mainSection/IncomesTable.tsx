@@ -45,7 +45,6 @@ export const IncomesTable = (props: Props) => {
         id: Math.floor(Math.random() * 1000) + 1, //'id' property is needed for table
         ...data,
       }));
-      refetch(); // Refetch incomes when the component mounts or updates
       setIncomes(incomeRows);
     }
   }, [incomesData]);

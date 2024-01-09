@@ -27,7 +27,7 @@ export const ExpensesTable = (props: Props) => {
   const { onExpenseSelected } = props;
   const { palette } = useTheme();
   const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
-  const { data: expensesData, refetch } = useGetAllExpensesQuery(); // Fetch expense data
+  const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
 
   // Destructuring mutation hooks for deleting and updating expenses
   const [deleteExpense] = useDeleteExpenseMutation();
@@ -45,8 +45,6 @@ export const ExpensesTable = (props: Props) => {
         ...data,
       }));
       setExpenses(expenseRows);
-      // TODO: Read RTK docs about this, is there any other ways to update UI in realtime (when switching tabs)
-      refetch(); //re-fetching the data from server
       // setAccountBalance(getTotalExpenses());
     }
   }, [expensesData]);
