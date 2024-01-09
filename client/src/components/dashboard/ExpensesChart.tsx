@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetAllExpensesQuery } from '@/redux/expensesApi'; // Update the path with your actual imports
-import { dateFormat } from '@/utils/dateFormat';
+import { dateFormat } from '@/utils/dateUtils';
 import { useTheme } from '@mui/material';
 import {
   Chart as ChartJS,

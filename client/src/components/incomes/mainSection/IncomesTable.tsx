@@ -11,7 +11,7 @@ import { AddIncomeButton } from './AddIncomeButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
-import { dateFormat } from '@/utils/dateFormat';
+import { dateFormat } from '@/utils/dateUtils';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
