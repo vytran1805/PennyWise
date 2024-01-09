@@ -71,6 +71,7 @@ export const IncomeForm = (props: Props) => {
           id={key}
           name={key}
           key={uniqueKey}
+          type={key === 'amount' ? 'number' : 'text'}
           label={label} // Capitalize the first letter
           value={formFieldData[fieldKey] || ''} // Explicitly tells TS that the key belongs to the group of properties from TransactionData interface
           onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
