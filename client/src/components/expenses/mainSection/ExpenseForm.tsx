@@ -12,7 +12,7 @@ export const ExpenseForm = (props: Props) => {
   const { onClose } = props;
   const [createExpense] = useCreateExpenseMutation();
   const [formData, setFormData] = useState<ExpenseData>({
-    date: '',
+    date: undefined,
     name: '',
     description: '',
     amount: 0,
@@ -21,11 +21,11 @@ export const ExpenseForm = (props: Props) => {
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      console.log({ date });
+      console.log('handleDateChange', typeof date);
 
       setFormData((prevFormData) => ({
         ...prevFormData,
-        date: date.toDateString(), // Returns Date as a string value (without timezone)
+        date: date, // Returns Date as a string value (without timezone)
       }));
     }
   };
