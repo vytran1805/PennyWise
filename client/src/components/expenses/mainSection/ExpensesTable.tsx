@@ -11,6 +11,7 @@ import { AddExpenseButton } from './AddExpenseButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
+import { dateFormat } from '@/utils/dateFormat';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -101,7 +102,13 @@ export const ExpensesTable = (props: Props) => {
 
   const columns: GridColDef[] = [
     { field: 'name', headerName: 'Name', flex: 1, editable: true },
-    { field: 'date', headerName: 'Date', flex: 2, editable: true },
+    {
+      field: 'date',
+      headerName: 'Date',
+      flex: 2,
+      editable: true,
+      valueFormatter: ({ value }) => dateFormat(value),
+    },
     {
       field: 'description',
       headerName: 'Description',
