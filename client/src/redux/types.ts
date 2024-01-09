@@ -7,7 +7,7 @@ export enum ExpenseType {
   Income = 'Income',
 }
 /**
- * this interface represents the KPI obj that we want the response to look like
+ * Structure of Income/Expense data from the server
  * Note: used in api.ts
  */
 export interface TransactionResponse {
@@ -20,6 +20,9 @@ export interface TransactionResponse {
   __v: number;
 }
 
+/**
+ * Structure of Income/Expense Data that BEING SENT back to the server
+ */
 export interface TransactionData {
   date?: Date;
   name?: string;
