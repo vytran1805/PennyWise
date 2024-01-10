@@ -28,6 +28,7 @@ export const ExpensesTable = (props: Props) => {
   const { palette } = useTheme();
   const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
   const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
+  console.log({ expensesData });
 
   // Destructuring mutation hooks for deleting and updating expenses
   const [deleteExpense] = useDeleteExpenseMutation();

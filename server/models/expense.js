@@ -6,6 +6,7 @@ const expenseSchema = new mongoose.Schema({
   amount: { type: Number, require: [true, 'Amount is required'] },
   date: { type: Date, require: false },
   category: { type: String, required: [true, 'Category is required'] },
+  type: { type: String, default: 'Expenses' },
 });
 
 const Expense = mongoose.model('Expense', expenseSchema);

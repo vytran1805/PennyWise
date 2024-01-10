@@ -2,7 +2,7 @@
  * Identify the type that we need *Expense
  **********************************/
 
-export enum ExpenseType {
+export enum TransactionType {
   Expenses = 'Expense',
   Income = 'Income',
 }
@@ -18,6 +18,7 @@ export interface TransactionResponse {
   category: string;
   description: string;
   __v: number;
+  type: TransactionType;
 }
 
 /**
@@ -29,4 +30,5 @@ export interface TransactionData {
   description?: string;
   amount?: number;
   category?: string;
+  type?: TransactionType;
 }

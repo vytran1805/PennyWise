@@ -6,6 +6,7 @@ const incomeSchema = new mongoose.Schema({
   amount: { type: Number, require: [true, 'Amount is required'] },
   date: { type: Date, require: false },
   category: { type: String, required: [true, 'Category is required'] },
+  type: { type: String, default: 'Income' },
 });
 
 // take the schema above and put it inside the Income model

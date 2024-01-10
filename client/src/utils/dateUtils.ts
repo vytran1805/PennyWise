@@ -8,8 +8,6 @@ export const dateFormat = (date: Date) => {
 export const sortDates = (dateStringA: string, dateStringB: string) => {
   const dateA = new Date(dateStringA);
   const dateB = new Date(dateStringB);
-  console.log({ dateA });
-  console.log({ dateB });
 
   return dateA.getTime() - dateB.getTime();
 };
