@@ -37,11 +37,11 @@ export const getAllExpenses = async (req, res) => {
 
 export const updateExpense = async (req, res) => {
   try {
-    const { _id } = req.body;
+    const { id } = req.params;
 
     const updatedExpense = await Expense.findByIdAndUpdate(
-      { _id }, // Find expense by _id
-      { $set: { ...req.body } }, // Update fields
+      id, // Use id directly as the first argument
+      { ...req.body }, // Spread req.body to update fields
       {
         new: true, // Return the updated document after the update operation
         runValidators: true, // Run schema validators during the update operation
@@ -51,6 +51,7 @@ export const updateExpense = async (req, res) => {
     if (!updatedExpense) {
       return res.status(404).json({ error: 'Expense not found' });
     }
+
     const updatedData = await Expense.find();
 
     res.status(200).json({
@@ -64,19 +65,19 @@ export const updateExpense = async (req, res) => {
 
 export const deleteExpense = async (req, res) => {
   try {
-    const { _id } = req.body;
+    const { id } = req.params; // Extract the expense ID from the URL parameters
 
-    const deletedExpense = await Expense.findByIdAndDelete(_id);
+    const deletedExpense = await Expense.findByIdAndDelete(id);
 
     if (!deletedExpense) {
       return res.status(404).json({ error: 'Expense not found' });
     }
 
-    // Fetch the updated data after deletion
-    const updatedExpense = await Expense.find();
+    // Send a success response with the updated data after deletion
+    const updatedExpenses = await Expense.find();
     res.status(200).json({
       message: 'Expense deleted successfully',
-      updatedExpense,
+      updatedExpenses,
     });
   } catch (error) {
     res.status(500).json({

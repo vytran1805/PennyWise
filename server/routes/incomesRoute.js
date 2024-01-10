@@ -15,6 +15,6 @@ const incomesRouter = express.Router();
 // incomeRouter.route('/incomes').post(logUserIn);
 incomesRouter.post('/', createIncome);
 incomesRouter.get('/', getAllIncomes);
-incomesRouter.patch('/', updateIncome);
-incomesRouter.delete('/', deleteIncome);
+incomesRouter.patch('/:id', updateIncome);
+incomesRouter.delete('/:id', deleteIncome);
 export default incomesRouter;

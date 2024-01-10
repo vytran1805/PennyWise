@@ -37,11 +37,11 @@ export const getAllIncomes = async (req, res) => {
 
 export const updateIncome = async (req, res) => {
   try {
-    const { _id } = req.body;
+    const { id } = req.params;
 
     const updatedIncome = await Income.findByIdAndUpdate(
-      { _id }, // Find income by _id
-      { $set: { ...req.body } }, // Update fields
+      id, // Find income by _id
+      { ...req.body }, // Spread req.body to update fields
       {
         new: true, // Return the updated document after the update operation
         runValidators: true, // Run schema validators during the update operation
@@ -64,9 +64,9 @@ export const updateIncome = async (req, res) => {
 
 export const deleteIncome = async (req, res) => {
   try {
-    const { _id } = req.body;
+    const { id } = req.params; // Extract the expense ID from the URL parameters
 
-    const deletedIncome = await Income.findByIdAndDelete(_id);
+    const deletedIncome = await Income.findByIdAndDelete(id);
 
     if (!deletedIncome) {
       return res.status(404).json({ error: 'Income not found' });
