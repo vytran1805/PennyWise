@@ -27,12 +27,7 @@ export const IncomesTable = (props: Props) => {
   const { onIncomeSelected } = props;
   const { palette } = useTheme();
   const [incomes, setIncomes] = useState<TransactionResponse[]>([]);
-  const {
-    data: incomesData,
-    isLoading,
-    isError,
-    refetch,
-  } = useGetAllIncomesQuery(); // Fetch income data using the query hook
+  const { data: incomesData } = useGetAllIncomesQuery(); // Fetch income data using the query hook
 
   // Destructuring mutation hooks for deleting and updating incomes
   const [deleteIncome] = useDeleteIncomeMutation();

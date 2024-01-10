@@ -5,7 +5,7 @@ import {
 } from '@/redux/expensesApi';
 import { TransactionResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IconButton, Typography, useTheme } from '@mui/material';
 import { AddExpenseButton } from './AddExpenseButton';
 import DeleteIcon from '@mui/icons-material/Delete';
