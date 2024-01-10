@@ -35,6 +35,16 @@ export const getAllExpenses = async (req, res) => {
   }
 };
 
+export const getExpense = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const expense = await Expense.findById(id);
+    res.status(201).json(expense);
+  } catch (error) {
+    res.status(500).json({ error: '500 - Unable to get expenses' });
+  }
+};
 export const updateExpense = async (req, res) => {
   try {
     const { id } = req.params;

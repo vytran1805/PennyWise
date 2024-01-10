@@ -35,6 +35,16 @@ export const getAllIncomes = async (req, res) => {
   }
 };
 
+export const getIncome = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const income = await Income.findById(id);
+    res.status(201).json(income);
+  } catch (error) {
+    res.status(500).json({ error: '500 - Unable to get incomes' });
+  }
+};
+
 export const updateIncome = async (req, res) => {
   try {
     const { id } = req.params;

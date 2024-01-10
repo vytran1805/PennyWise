@@ -4,6 +4,7 @@ import {
   createIncome,
   updateIncome,
   deleteIncome,
+  getIncome,
 } from '../controllers/incomesController.js';
 
 const incomesRouter = express.Router();
@@ -15,6 +16,7 @@ const incomesRouter = express.Router();
 // incomeRouter.route('/incomes').post(logUserIn);
 incomesRouter.post('/', createIncome);
 incomesRouter.get('/', getAllIncomes);
+incomesRouter.get('/:id', getIncome);
 incomesRouter.patch('/:id', updateIncome);
 incomesRouter.delete('/:id', deleteIncome);
 export default incomesRouter;
