@@ -1,4 +1,3 @@
-import { AddRecordButton } from './AddRecordButton';
 const Sidebar = (testId: string) => {
   return `sidebar-listItem-${testId}`;
 };
