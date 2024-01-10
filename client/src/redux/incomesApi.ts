@@ -1,7 +1,7 @@
 import { TransactionData, TransactionResponse } from './types';
 import { emptySplitApi } from './emptyApi';
 
-const INCOME_URL = 'api/incomes/';
+const INCOME_URL = 'api/incomes';
 export const incomesApi = emptySplitApi.injectEndpoints({
   // reducerPath: 'incomes',
   // baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
@@ -17,14 +17,20 @@ export const incomesApi = emptySplitApi.injectEndpoints({
     getAllIncomes: build.query<TransactionResponse[], void>({
       query: () => INCOME_URL,
       // Generates cache tags for each income item fetched
+      // See: https://redux-toolkit.js.org/rtk-query/usage/examples
       providesTags: (result) =>
-        result ? result.map(({ _id }) => ({ type: 'Incomes', _id })) : [],
+        result
+          ? [
+              ...result.map(({ _id }) => ({ type: 'Incomes' as const, _id })),
+              { type: 'Incomes', _id: 'LIST' },
+            ]
+          : [{ type: 'Incomes', id: 'LIST' }],
       // For each fetched income, creates a cache tag of type 'Incomes' using the _id
       // These tags are used for caching and data invalidation purposes
     }),
     deleteIncome: build.mutation<void, { _id: string }>({
       query: ({ _id }) => ({
-        url: INCOME_URL, // Assuming API endpoint for deleting a specific income
+        url: `${INCOME_URL}/${_id}`, // Assuming API endpoint for deleting a specific income
         method: 'DELETE',
         body: { _id },
       }),
@@ -32,7 +38,7 @@ export const incomesApi = emptySplitApi.injectEndpoints({
     }),
     updateIncome: build.mutation<void, { data: TransactionResponse }>({
       query: ({ data }) => ({
-        url: INCOME_URL, // Assuming API endpoint for updating a specific income
+        url: `${INCOME_URL}/${data._id}`, // Assuming API endpoint for updating a specific income
         method: 'PATCH', // Use the appropriate HTTP method (PUT, PATCH, etc.) for updating
         body: { ...data }, // Send the updated data to the server
       }),
