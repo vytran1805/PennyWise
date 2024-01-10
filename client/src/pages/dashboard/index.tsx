@@ -1,4 +1,4 @@
-import { ExpensesIncomeChart } from '@/components/dashboard/ExpensesChart';
+import { TransactionsChart } from '@/components/dashboard/TransactionsChart';
 
 import { Box } from '@mui/material';
 import styled from 'styled-components';
@@ -12,7 +12,7 @@ const Container = styled(Box)({
 export const Dashboard = () => {
   return (
     <Container>
-      <ExpensesIncomeChart />
+      <TransactionsChart />
     </Container>
   );
 };

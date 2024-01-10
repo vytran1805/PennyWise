@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useGetAllExpensesQuery } from '@/redux/expensesApi'; // Update the path with your actual imports
-import { dateFormat } from '@/utils/dateUtils';
+import { dateFormat, sortDates } from '@/utils/dateUtils';
 import { useTheme } from '@mui/material';
 import {
   Chart as ChartJS,
@@ -41,15 +41,13 @@ ChartJS.register(
   ArcElement
 );
 
-export const ExpensesIncomeChart = () => {
+export const TransactionsChart = () => {
   // Get theme from Material-UI
   const { palette } = useTheme();
 
   // Fetch expenses and incomes data
-  const { data: expenses, refetch: refetchExpensesData } =
-    useGetAllExpensesQuery();
-  const { data: incomes, refetch: refetchIncomesData } =
-    useGetAllIncomesQuery();
+  const { data: expenses } = useGetAllExpensesQuery();
+  const { data: incomes } = useGetAllIncomesQuery();
 
   // State to hold chart data
   const [chartData, setChartData] = useState<any>(null);
@@ -58,23 +56,27 @@ export const ExpensesIncomeChart = () => {
   useEffect(() => {
     if (expenses && incomes) {
       const allDatesSet = new Set([
-        ...(expenses?.map((expense: any) => dateFormat(expense.date)) || []),
-        ...(incomes?.map((income: any) => dateFormat(income.date)) || []),
+        ...(expenses?.map((expense: any) => expense.date) || []),
+        ...(incomes?.map((income: any) => income.date) || []),
       ]);
-      const allDates = Array.from(allDatesSet).sort();
+
+      const allDates = Array.from(allDatesSet).sort(sortDates);
+      console.log({ allDates });
+
+      const xAxisLabels = allDates.map((date) => dateFormat(date));
 
       const expensesData = allDates.map((date) => {
-        const expense = expenses.find((e: any) => dateFormat(e.date) === date);
+        const expense = expenses.find((e: any) => e.date === date);
         return expense ? expense.amount : 0;
       });
 
       const incomesData = allDates.map((date) => {
-        const income = incomes.find((i: any) => dateFormat(i.date) === date);
+        const income = incomes.find((i: any) => i.date === date);
         return income ? income.amount : 0;
       });
 
       const updatedData = {
-        labels: allDates,
+        labels: xAxisLabels,
         datasets: [
           {
             label: 'Expense',
@@ -92,8 +94,6 @@ export const ExpensesIncomeChart = () => {
       };
 
       setChartData(updatedData);
-      refetchExpensesData();
-      refetchIncomesData();
     }
   }, [expenses, incomes]);
 
