@@ -1,11 +1,10 @@
 import styled from 'styled-components';
 import { Box } from '@mui/material';
 import { testIds } from './testIds';
-import { TransactionResponse } from '@/redux/types';
-import { useState } from 'react';
 import { TimelinePicker } from '@/components/expenses/mainSection/TimelinePicker';
 import { ExpensesTable } from '@/components/expenses/mainSection/ExpensesTable';
-import { RightSection } from '@/components/expenses/rightSection/RightSection';
+import { ExpenseDetails } from '@/components/expenses/rightSection/ExpenseDetails';
+import { Route, Routes } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -26,15 +25,16 @@ const RightContainer = styled(Box)`
 `;
 
 export const Expenses = () => {
-  const [selectedExpense, setSelectedExpense] = useState<TransactionResponse>();
   return (
     <Container data-test-id={testIds.expenses.container}>
       <MainContainer data-test-id={testIds.expenses.mainContainer.container}>
         <TimelinePicker />
-        <ExpensesTable onExpenseSelected={setSelectedExpense} />
+        <ExpensesTable />
       </MainContainer>
       <RightContainer data-test-id={testIds.expenses.rightContainer.container}>
-        <RightSection expenseDetail={selectedExpense} />
+        <Routes>
+          <Route path='/:id' element={<ExpenseDetails />} />
+        </Routes>
       </RightContainer>
     </Container>
   );

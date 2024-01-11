@@ -13,18 +13,15 @@ import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
 import { dateFormat } from '@/utils/dateUtils';
 import { getTotalAmount } from '@/utils/totalCalculatorUtils';
+import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
-type Props = {
-  onExpenseSelected: React.Dispatch<
-    React.SetStateAction<TransactionResponse | undefined>
-  >;
-};
-export const ExpensesTable = (props: Props) => {
-  const { onExpenseSelected } = props;
+// NOTE: The 'description' will be shown in the ExpenseDetails component
+export const ExpensesTable = () => {
+  const navigate = useNavigate();
   const { palette } = useTheme();
   const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
   const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
@@ -73,7 +70,6 @@ export const ExpensesTable = (props: Props) => {
       await deleteExpense({ _id });
       const updatedExpenses = expenses.filter((expense) => expense._id !== _id);
       setExpenses(updatedExpenses);
-      onExpenseSelected(undefined);
     } catch (error) {
       console.error('Failed to delete expense:', error);
     }
@@ -81,9 +77,10 @@ export const ExpensesTable = (props: Props) => {
 
   const handleRowClick = (params: GridRowParams) => {
     console.log('Clicked row data:', params.row);
-    onExpenseSelected(params.row);
     const clickedExpenseId = params.row._id;
+    navigate(`/expenses/${clickedExpenseId}`);
     console.log('Clicked expense ID:', clickedExpenseId);
+
     // Perform actions or state updates based on the clicked row data
   };
 
@@ -95,12 +92,6 @@ export const ExpensesTable = (props: Props) => {
       flex: 2,
       editable: true,
       valueFormatter: ({ value }) => dateFormat(value),
-    },
-    {
-      field: 'description',
-      headerName: 'Description',
-      flex: 1,
-      editable: true,
     },
     {
       field: 'category',

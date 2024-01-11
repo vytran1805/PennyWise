@@ -14,6 +14,7 @@ export const expensesApi = emptySplitApi.injectEndpoints({
       }),
       invalidatesTags: ['Expenses'],
     }),
+
     getAllExpenses: build.query<TransactionResponse[], void>({
       query: () => EXPENSES_URL,
       // Generates cache tags for each expense item fetched
@@ -28,6 +29,12 @@ export const expensesApi = emptySplitApi.injectEndpoints({
       // For each fetched expense, creates a cache tag of type 'Expenses' using the _id
       // These tags are used for caching and data invalidation purposes
     }),
+
+    getExpense: build.query<TransactionResponse, string>({
+      query: (_id) => `${EXPENSES_URL}/${_id}`,
+      providesTags: (_id) => [{ type: 'Expenses', _id }],
+    }),
+
     deleteExpense: build.mutation<void, { _id: string }>({
       query: ({ _id }) => ({
         url: `${EXPENSES_URL}/${_id}`, // Assuming API endpoint for deleting a specific expense
@@ -36,22 +43,21 @@ export const expensesApi = emptySplitApi.injectEndpoints({
       }),
       invalidatesTags: ['Expenses'],
     }),
-    updateExpense: build.mutation<void, { data: Partial<TransactionResponse> }>(
-      {
-        query: ({ data }) => ({
-          url: `${EXPENSES_URL}/${data._id}`, // Assuming API endpoint for updating a specific expense
-          method: 'PATCH', // Use the appropriate HTTP method (PUT, PATCH, etc.) for updating
-          body: { ...data }, // Send the updated data to the server
-        }),
-        invalidatesTags: ['Expenses'],
-      }
-    ),
+    updateExpense: build.mutation<void, { data: TransactionResponse }>({
+      query: ({ data }) => ({
+        url: `${EXPENSES_URL}/${data._id}`, // Assuming API endpoint for updating a specific expense
+        method: 'PATCH', // Use the appropriate HTTP method (PUT, PATCH, etc.) for updating
+        body: { ...data }, // Send the updated data to the server
+      }),
+      invalidatesTags: ['Expenses'],
+    }),
   }),
 });
 
 export const {
   useCreateExpenseMutation,
   useGetAllExpensesQuery,
+  useGetExpenseQuery,
   useDeleteExpenseMutation,
   useUpdateExpenseMutation,
 } = expensesApi;
