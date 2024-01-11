@@ -19,7 +19,7 @@ const Container = styled.div`
   flex-direction: column;
   gap: 10px;
 `;
-
+// NOTE: The 'description' will be shown in the IncomeDetails component
 export const IncomesTable = () => {
   const { palette } = useTheme();
 
@@ -90,12 +90,6 @@ export const IncomesTable = () => {
       flex: 2,
       editable: true,
       valueFormatter: ({ value }) => dateFormat(value),
-    },
-    {
-      field: 'description',
-      headerName: 'Description',
-      flex: 1,
-      editable: true,
     },
     {
       field: 'category',
