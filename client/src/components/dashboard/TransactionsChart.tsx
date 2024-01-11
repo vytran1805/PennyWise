@@ -6,14 +6,12 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
   Title,
   Tooltip,
   Legend,
-  ArcElement,
+  BarElement,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
 import { useGetAllIncomesQuery } from '@/redux/incomesApi';
 
@@ -33,12 +31,10 @@ const ChartStyled = styled.div<ColorProps>`
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  PointElement,
-  LineElement,
+  BarElement,
   Title,
   Tooltip,
-  Legend,
-  ArcElement
+  Legend
 );
 
 export const TransactionsChart = () => {
@@ -51,28 +47,46 @@ export const TransactionsChart = () => {
 
   // State to hold chart data
   const [chartData, setChartData] = useState<any>(null);
-
   // Calculate chart data when expenses or incomes change
   useEffect(() => {
     if (expenses && incomes) {
+      // Combine unique dates from both expenses and incomes
       const allDatesSet = new Set([
         ...(expenses?.map((expense: any) => expense.date) || []),
         ...(incomes?.map((income: any) => income.date) || []),
       ]);
 
+      // Convert the set of dates to an array and sort them
       const allDates = Array.from(allDatesSet).sort(sortDates);
       console.log({ allDates });
 
+      // Map dates to formatted labels for the X-axis
       const xAxisLabels = allDates.map((date) => dateFormat(date));
 
+      // Map dates to total expenses for each date
       const expensesData = allDates.map((date) => {
-        const expense = expenses.find((e: any) => e.date === date);
-        return expense ? expense.amount : 0;
+        // Filter expenses for the current date
+        const expensesOnDate = expenses.filter((e: any) => e.date === date);
+
+        // Calculate total expense for the current date
+        const totalExpense = expensesOnDate.reduce(
+          (sum: number, expense: any) => sum + expense.amount,
+          0
+        );
+        return totalExpense;
       });
 
+      // Map dates to total incomes for each date
       const incomesData = allDates.map((date) => {
-        const income = incomes.find((i: any) => i.date === date);
-        return income ? income.amount : 0;
+        // Filter incomes for the current date
+        const incomesOnDate = incomes.filter((e: any) => e.date === date);
+
+        // Calculate total income for the current date
+        const totalIncome = incomesOnDate.reduce(
+          (sum: number, income: any) => sum + income.amount,
+          0
+        );
+        return totalIncome;
       });
 
       const updatedData = {
@@ -81,14 +95,12 @@ export const TransactionsChart = () => {
           {
             label: 'Expense',
             data: expensesData,
-            backgroundColor: 'red',
-            tension: 0.2,
+            backgroundColor: 'rgba(255, 99, 132, 0.5)',
           },
           {
             label: 'Income',
             data: incomesData,
-            backgroundColor: 'green',
-            tension: 0.2,
+            backgroundColor: 'rgba(53, 162, 235, 0.5)',
           },
         ],
       };
@@ -97,9 +109,21 @@ export const TransactionsChart = () => {
     }
   }, [expenses, incomes]);
 
+  const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'top' as const,
+      },
+      title: {
+        display: true,
+        text: 'TRANSACTIONS',
+      },
+    },
+  };
   return (
     <ChartStyled color={palette.primary[200]}>
-      {chartData && <Line data={chartData} />}
+      {chartData && <Bar options={options} data={chartData} />}
     </ChartStyled>
   );
 };
