@@ -14,6 +14,7 @@ export const incomesApi = emptySplitApi.injectEndpoints({
       }),
       invalidatesTags: ['Incomes'],
     }),
+
     getAllIncomes: build.query<TransactionResponse[], void>({
       query: () => INCOME_URL,
       // Generates cache tags for each income item fetched
@@ -28,6 +29,12 @@ export const incomesApi = emptySplitApi.injectEndpoints({
       // For each fetched income, creates a cache tag of type 'Incomes' using the _id
       // These tags are used for caching and data invalidation purposes
     }),
+
+    getIncome: build.query<TransactionResponse, string>({
+      query: (_id) => `${INCOME_URL}/${_id}`,
+      providesTags: (_id) => [{ type: 'Incomes', _id }],
+    }),
+
     deleteIncome: build.mutation<void, { _id: string }>({
       query: ({ _id }) => ({
         url: `${INCOME_URL}/${_id}`, // Assuming API endpoint for deleting a specific income
@@ -52,4 +59,5 @@ export const {
   useGetAllIncomesQuery,
   useDeleteIncomeMutation,
   useUpdateIncomeMutation,
+  useGetIncomeQuery,
 } = incomesApi;

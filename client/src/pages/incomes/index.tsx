@@ -5,7 +5,8 @@ import { TransactionResponse } from '@/redux/types';
 import { useState } from 'react';
 import { TimelinePicker } from '@/components/incomes/mainSection/TimelinePicker';
 import { IncomesTable } from '@/components/incomes/mainSection/IncomesTable';
-import { RightSection } from '@/components/incomes/rightSection/RightSection';
+import { IncomeDetails } from '@/components/incomes/rightSection/IncomeDetails';
+import { Route, Routes } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -26,15 +27,16 @@ const RightContainer = styled(Box)`
 `;
 
 export const Incomes = () => {
-  const [selectedIncome, setSelectedIncome] = useState<TransactionResponse>();
   return (
     <Container data-test-id={testIds.incomes.container}>
       <MainContainer data-test-id={testIds.incomes.mainContainer.container}>
         <TimelinePicker />
-        <IncomesTable onIncomeSelected={setSelectedIncome} />
+        <IncomesTable />
       </MainContainer>
       <RightContainer data-test-id={testIds.incomes.rightContainer.container}>
-        <RightSection incomeDetail={selectedIncome} />
+        <Routes>
+          <Route path='/:id' element={<IncomeDetails />} />
+        </Routes>
       </RightContainer>
     </Container>
   );

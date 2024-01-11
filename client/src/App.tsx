@@ -31,8 +31,9 @@ function App() {
               {isUserLoggedIn && (
                 <>
                   <Route path='/dashboard' element={<Dashboard />} />
-                  <Route path='/expenses' element={<Expenses />} />
-                  <Route path='/incomes' element={<Incomes />} />
+                  {/* when the URL matches the pattern /expenses/*, the <Expenses /> component will be rendered */}
+                  <Route path='/expenses/*' element={<Expenses />} />
+                  <Route path='/incomes/*' element={<Incomes />} />
                 </>
               )}
             </Routes>

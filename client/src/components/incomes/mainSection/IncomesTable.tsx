@@ -13,19 +13,17 @@ import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
 import { dateFormat } from '@/utils/dateUtils';
 import { getTotalAmount } from '@/utils/totalCalculatorUtils';
+import { useNavigate } from 'react-router-dom';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
 `;
-type Props = {
-  onIncomeSelected: React.Dispatch<
-    React.SetStateAction<TransactionResponse | undefined>
-  >;
-};
-export const IncomesTable = (props: Props) => {
-  const { onIncomeSelected } = props;
+
+export const IncomesTable = () => {
   const { palette } = useTheme();
+
+  const navigate = useNavigate();
   const [incomes, setIncomes] = useState<TransactionResponse[]>([]);
   const { data: incomesData } = useGetAllIncomesQuery(); // Fetch income data using the query hook
 
@@ -67,7 +65,6 @@ export const IncomesTable = (props: Props) => {
       await deleteIncome({ _id });
       const updatedIncomes = incomes.filter((income) => income._id !== _id);
       setIncomes(updatedIncomes);
-      onIncomeSelected(undefined);
     } catch (error) {
       console.error('Failed to delete income:', error);
     }
@@ -75,8 +72,11 @@ export const IncomesTable = (props: Props) => {
 
   const handleRowClick = (params: GridRowParams) => {
     console.log('Clicked row data:', params.row);
-    onIncomeSelected(params.row);
     const clickedIncomeId = params.row._id;
+    if (clickedIncomeId) {
+      navigate(`/incomes/${clickedIncomeId}`);
+      console.log('navigated to income details');
+    }
     console.log('Clicked income ID:', clickedIncomeId);
     // Perform actions or state updates based on the clicked row data
   };
