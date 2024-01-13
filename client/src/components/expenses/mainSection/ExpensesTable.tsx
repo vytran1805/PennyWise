@@ -12,8 +12,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
 import { dateFormat } from '@/utils/dateUtils';
-import { getTotalAmount } from '@/utils/totalCalculatorUtils';
 import { useNavigate } from 'react-router-dom';
+import { useGetTotalAmount } from '@/hooks/useGetTotalAmount';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,6 +23,7 @@ const Container = styled.div`
 export const ExpensesTable = () => {
   const navigate = useNavigate();
   const { palette } = useTheme();
+  const [totalExpenses, setTotalExpenses] = useState<string>('');
   const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
   const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
   console.log({ expensesData });
@@ -31,6 +32,10 @@ export const ExpensesTable = () => {
   const [deleteExpense] = useDeleteExpenseMutation();
   const [updateExpense] = useUpdateExpenseMutation();
 
+  const getTotalExpenses = () => {
+    const total = useGetTotalAmount(expensesData);
+    setTotalExpenses(total);
+  };
   /**
    * Prepare row records for the table using useMemo()
    * @FirstParam call back function
@@ -43,8 +48,11 @@ export const ExpensesTable = () => {
         ...data,
       }));
       setExpenses(expenseRows);
-      // setAccountBalance(getTotalExpenses());
+      getTotalExpenses();
     }
+    return () => {
+      setTotalExpenses(''); // Clear the state when component is unmounted
+    };
   }, [expensesData]);
 
   const handleUpdate = async (
@@ -129,7 +137,7 @@ export const ExpensesTable = () => {
   return (
     <Container>
       <Typography variant='h2' color={palette.primary[700]}>
-        Total expenses: {getTotalAmount(expenses)}
+        Total expenses: {totalExpenses}
       </Typography>
       <DataGrid
         rows={expenses}

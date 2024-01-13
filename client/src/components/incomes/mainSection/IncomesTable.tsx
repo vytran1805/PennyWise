@@ -12,8 +12,8 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
 import { numberToCurrency } from '@/utils/currencyUtils';
 import { dateFormat } from '@/utils/dateUtils';
-import { getTotalAmount } from '@/utils/totalCalculatorUtils';
 import { useNavigate } from 'react-router-dom';
+import { useGetTotalAmount } from '@/hooks/useGetTotalAmount';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -26,11 +26,15 @@ export const IncomesTable = () => {
   const navigate = useNavigate();
   const [incomes, setIncomes] = useState<TransactionResponse[]>([]);
   const { data: incomesData } = useGetAllIncomesQuery(); // Fetch income data using the query hook
-
+  const [totalIncomes, setTotalIncomes] = useState<string>('');
   // Destructuring mutation hooks for deleting and updating incomes
   const [deleteIncome] = useDeleteIncomeMutation();
   const [updateIncome] = useUpdateIncomeMutation();
 
+  const getTotalIncomes = () => {
+    const total = useGetTotalAmount(incomesData);
+    setTotalIncomes(total);
+  };
   // Prepare row records for the table
   useEffect(() => {
     if (incomesData) {
@@ -39,7 +43,12 @@ export const IncomesTable = () => {
         ...data,
       }));
       setIncomes(incomeRows);
+      getTotalIncomes();
     }
+    // Cleanup function
+    return () => {
+      setTotalIncomes(''); // Clear the state when component is unmounted
+    };
   }, [incomesData]);
 
   const handleUpdate = async (
@@ -128,7 +137,7 @@ export const IncomesTable = () => {
   return (
     <Container>
       <Typography variant='h2' color={palette.primary[700]}>
-        Total Income: {getTotalAmount(incomes)}
+        Total Income: {totalIncomes}
       </Typography>
       <DataGrid
         rows={incomes}
