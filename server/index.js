@@ -10,7 +10,7 @@ import { AUTH, EXPENSES, INCOMES } from './routes/routePaths.js'; // Import rout
 
 /* CONFIGURATION */
 dotenv.config();
-const PORT = process.env.PORT || 8080;
+// const PORT = process.env.PORT || 8080;
 
 /* CONNECT TO EXPRESS APP */
 const app = express();
@@ -24,12 +24,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
-    app.listen(PORT, () => {
-      console.log(
-        `Server is connected to port ${PORT} and connected to MongoDB`
-      );
-    });
+    // app.listen(PORT, () => {
+    console.log(`Server is connected to MongoDB`);
   })
+  // })
   .catch((error) => {
     console.log('Unable to connect to Server and/or MongoDB');
   });

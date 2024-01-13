@@ -3,7 +3,7 @@
 import axios, { AxiosResponse } from 'axios';
 
 const axiosService = axios.create({
-  baseURL: 'http://localhost:3001/api/auth',
+  baseURL: 'https://penny-wise-backend.vercel.app/api/auth',
   // You can set common headers or configurations here if needed
 });
 
