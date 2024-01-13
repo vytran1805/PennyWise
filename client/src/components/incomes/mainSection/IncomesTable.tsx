@@ -6,7 +6,7 @@ import {
 import { TransactionResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
-import { IconButton, Typography, useTheme } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { AddIncomeButton } from './AddIncomeButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
@@ -21,8 +21,6 @@ const Container = styled.div`
 `;
 // NOTE: The 'description' will be shown in the IncomeDetails component
 export const IncomesTable = () => {
-  const { palette } = useTheme();
-
   const navigate = useNavigate();
   const [incomes, setIncomes] = useState<TransactionResponse[]>([]);
   const { data: incomesData } = useGetAllIncomesQuery(); // Fetch income data using the query hook
@@ -136,9 +134,7 @@ export const IncomesTable = () => {
 
   return (
     <Container>
-      <Typography variant='h2' color={palette.primary[700]}>
-        Total Income: {totalIncomes}
-      </Typography>
+      <Typography variant='h2'>Total Income: {totalIncomes}</Typography>
       <DataGrid
         rows={incomes}
         columns={columns}

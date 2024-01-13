@@ -94,7 +94,7 @@ export const NavBar = () => {
   };
 
   return (
-    <Container style={{ backgroundColor: palette.primary[800] }}>
+    <Container>
       {/* <IconButton
             size="large"
             edge="start"
@@ -104,10 +104,7 @@ export const NavBar = () => {
           >
             <MenuIcon />
           </IconButton> */}
-      <Link
-        to={'/'}
-        style={{ textDecoration: 'none', color: palette.secondary[700] }}
-      >
+      <Link to={'/'} style={{ textDecoration: 'none' }}>
         <span>Penny Wise</span>
       </Link>
       <LinkComponent>

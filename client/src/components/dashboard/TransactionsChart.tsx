@@ -122,7 +122,7 @@ export const TransactionsChart = () => {
     },
   };
   return (
-    <ChartStyled color={palette.primary[200]}>
+    <ChartStyled color={palette.grey[100]}>
       {chartData && <Bar options={options} data={chartData} />}
     </ChartStyled>
   );

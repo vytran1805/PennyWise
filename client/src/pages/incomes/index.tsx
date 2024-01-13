@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { Box } from '@mui/material';
 import { testIds } from './testIds';
-import { TransactionResponse } from '@/redux/types';
-import { useState } from 'react';
 import { TimelinePicker } from '@/components/incomes/mainSection/TimelinePicker';
 import { IncomesTable } from '@/components/incomes/mainSection/IncomesTable';
 import { IncomeDetails } from '@/components/incomes/rightSection/IncomeDetails';

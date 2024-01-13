@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Sidebar as ProSidebar, Menu } from 'react-pro-sidebar';
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { MenuOutlined } from '@mui/icons-material';
 import { SidebarListItem } from '@/components/sidebar/SidebarListItem';
 import { sidebarItems } from '@/data/SidebarData';
@@ -8,7 +8,6 @@ import { testIds } from '../testIds';
 import { useNavigate } from 'react-router-dom';
 
 export const Sidebar = () => {
-  const { palette } = useTheme();
   const [isCollapsed, setIsCollapsed] = useState<boolean>(false);
   const [selected, setSelected] = useState<string>('Dashboard');
   const navigate = useNavigate();
@@ -52,9 +51,9 @@ export const Sidebar = () => {
     <Box
       sx={{
         display: 'flex',
-        '& .ps-sidebar-container': {
-          background: `${palette.primary[300]} !important`, // Background of the sidebar
-        },
+        // '& .ps-sidebar-container': {
+        //   background: `${palette.primary[300]} !important`, // Background of the sidebar
+        // },
         '& .css-ewdv3l': {
           width: '100%',
           display: 'flex',

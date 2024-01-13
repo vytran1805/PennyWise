@@ -6,7 +6,7 @@ import {
 import { TransactionResponse } from '@/redux/types';
 import { DataGrid, GridColDef, GridRowParams } from '@mui/x-data-grid';
 import { useEffect, useState } from 'react';
-import { IconButton, Typography, useTheme } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import { AddExpenseButton } from './AddExpenseButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styled from 'styled-components';
@@ -22,7 +22,6 @@ const Container = styled.div`
 // NOTE: The 'description' will be shown in the ExpenseDetails component
 export const ExpensesTable = () => {
   const navigate = useNavigate();
-  const { palette } = useTheme();
   const [totalExpenses, setTotalExpenses] = useState<string>('');
   const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
   const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
@@ -136,9 +135,7 @@ export const ExpensesTable = () => {
 
   return (
     <Container>
-      <Typography variant='h2' color={palette.primary[700]}>
-        Total expenses: {totalExpenses}
-      </Typography>
+      <Typography variant='h2'>Total expenses: {totalExpenses}</Typography>
       <DataGrid
         rows={expenses}
         columns={columns}
