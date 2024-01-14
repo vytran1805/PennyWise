@@ -26,7 +26,7 @@ export const Signup = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); //prevent the page from refreshing after hitting submit
     axios
-      .post('https://penny-wise-pi.vercel.app/register', {
+      .post('hpenny-wise-backend.vercel.app/api/auth/register', {
         email,
         username,
         password,
@@ -49,7 +49,7 @@ export const Signup = () => {
 
   const fetchUsers = () => {
     axios
-      .get('https://penny-wise-pi.vercel.app/register')
+      .get('penny-wise-backend.vercel.app/api/auth/register')
       .then((res) => console.log(res.data));
   };
   return (
