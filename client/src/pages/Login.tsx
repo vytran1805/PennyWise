@@ -30,7 +30,7 @@ export const Login = () => {
       setUsername('');
       fetchUsers();
       console.log({ username, password });
-      navigate('/account');
+      navigate('/dashboard');
       window.location.reload();
       localStorage.setItem('token', token);
     } catch (error) {

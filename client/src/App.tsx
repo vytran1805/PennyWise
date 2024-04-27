@@ -25,7 +25,8 @@ function App() {
           <main className='content'>
             <NavBar />
             <Routes>
-              <Route path='/' element={<HomePage />} />
+              {/* <Route path='/' element={<HomePage />} /> */}
+              <Route path='/' element={<Login />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Signup />} />
               {isUserLoggedIn && (

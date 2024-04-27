@@ -35,12 +35,12 @@ export const NavBar = () => {
     return (
       <>
         <Link
-          to='/account'
+          to='/dashboard'
           // onClick={handleSignOut}
           style={{
             // color: selected === 'login' ? 'inherit' : palette.grey[200],
             textDecoration: 'inherit',
-            color: palette.grey[200],
+            color: palette.grey[700],
           }}
         >
           Account
@@ -51,7 +51,7 @@ export const NavBar = () => {
           style={{
             // color: selected === 'login' ? 'inherit' : palette.grey[200],
             textDecoration: 'inherit',
-            color: palette.grey[200],
+            color: palette.grey[700],
           }}
         >
           Log out
@@ -73,7 +73,7 @@ export const NavBar = () => {
           style={{
             // color: selected === 'login' ? 'inherit' : palette.grey[200],
             textDecoration: 'inherit',
-            color: palette.grey[200],
+            color: palette.grey[700],
           }}
         >
           Log in
@@ -84,7 +84,7 @@ export const NavBar = () => {
           style={{
             // color: selected === 'register' ? 'inherit' : palette.grey[200],
             textDecoration: 'none',
-            color: palette.grey[200],
+            color: palette.grey[700],
           }}
         >
           Sign up
