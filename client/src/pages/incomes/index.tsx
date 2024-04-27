@@ -15,6 +15,7 @@ const Container = styled.div`
 const MainContainer = styled(Box)`
   background: white;
   flex: 2;
+  max-width: 1000px;
   padding: 10px;
   gap: 10px;
 `;
