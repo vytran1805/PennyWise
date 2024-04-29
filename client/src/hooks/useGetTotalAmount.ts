@@ -1,5 +1,4 @@
 import { TransactionResponse } from '@/redux/types';
-import { numberToCurrency } from '@/utils/currencyUtils';
 
 export const useGetTotalAmount = (
   transactions: TransactionResponse[] | undefined
