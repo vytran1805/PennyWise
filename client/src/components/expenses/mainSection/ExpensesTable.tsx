@@ -134,7 +134,7 @@ export const ExpensesTable = () => {
 
   return (
     <Container>
-      <Typography variant='h2'>Total expenses: {totalExpenses}</Typography>
+      <Typography variant='h2'>Total expense: {totalExpense}</Typography>
       <DataGrid
         rows={expenses}
         columns={columns}
