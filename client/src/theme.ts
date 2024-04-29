@@ -50,7 +50,7 @@ export const themeSettings = {
     },
     secondary: {
       ...colors.secondary,
-      main: colors.secondary[600],
+      main: colors.secondary[800],
       light: colors.secondary[700],
     },
     background: {
