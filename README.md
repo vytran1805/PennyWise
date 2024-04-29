@@ -54,9 +54,9 @@ This project was created by [@vytran](https://www.github.com/vytran1805)
 
 ## Screenshots
 
-![Login page](./client/src/assets/img/login.png)
 **Login page**
-![Dashboard](./client/src/assets/img/dashboard.png)
+![Login page](./client/src/assets/img/login.png)
 **Dashboard**
-![Income page](./client/src/assets/img/incomes.png)
+![Dashboard](./client/src/assets/img/dashboard.png)
 **Income page**
+![Income page](./client/src/assets/img/incomes.png)
