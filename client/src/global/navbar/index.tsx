@@ -6,6 +6,7 @@ const Container = styled.div`
   display: flex;
   height: 40px;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
 `;
 const LinkComponent = styled.div`
@@ -104,8 +105,15 @@ export const NavBar = () => {
           >
             <MenuIcon />
           </IconButton> */}
-      <Link to={'/'} style={{ textDecoration: 'none' }}>
-        <span>Penny Wise</span>
+      <Link
+        to={'/'}
+        style={{
+          textDecoration: 'none',
+          color: palette.secondary.dark,
+          fontSize: 22,
+        }}
+      >
+        <strong>Penny Wise</strong>
       </Link>
       <LinkComponent>
         {isUserLoggedIn ? handleUserSignedIn() : handleUserSignedOut()}

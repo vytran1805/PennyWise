@@ -39,7 +39,7 @@ export const Sidebar = () => {
         alignItems='center'
         ml='15px'
       >
-        <Typography variant='h3'>ADMIN</Typography>
+        <Typography variant='h3'>Admin</Typography>
         <IconButton onClick={toggleCollapse}>
           <MenuOutlined />
         </IconButton>
