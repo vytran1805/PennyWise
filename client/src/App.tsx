@@ -27,7 +27,7 @@ function App() {
             <NavBar />
             <Routes>
               {/* <Route path='/' element={<HomePage />} /> */}
-              <Route path='/' element={<Dashboard />} />
+              <Route path='/' element={<Login />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Signup />} />
               {isUserLoggedIn && (
