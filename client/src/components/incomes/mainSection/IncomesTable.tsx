@@ -24,14 +24,14 @@ export const IncomesTable = () => {
   const navigate = useNavigate();
   const [incomes, setIncomes] = useState<TransactionResponse[]>([]);
   const { data: incomesData } = useGetAllIncomesQuery(); // Fetch income data using the query hook
-  const [totalIncomes, setTotalIncomes] = useState<string>('');
+  const [totalIncome, setTotalIncome] = useState<string>('');
   // Destructuring mutation hooks for deleting and updating incomes
   const [deleteIncome] = useDeleteIncomeMutation();
   const [updateIncome] = useUpdateIncomeMutation();
 
-  const getTotalIncomes = () => {
+  const getTotalIncome = () => {
     const total = useGetTotalAmount(incomesData);
-    setTotalIncomes(total);
+    setTotalIncome(numberToCurrency(total));
   };
   // Prepare row records for the table
   useEffect(() => {
@@ -41,11 +41,11 @@ export const IncomesTable = () => {
         ...data,
       }));
       setIncomes(incomeRows);
-      getTotalIncomes();
+      getTotalIncome();
     }
     // Cleanup function
     return () => {
-      setTotalIncomes(''); // Clear the state when component is unmounted
+      setTotalIncome(''); // Clear the state when component is unmounted
     };
   }, [incomesData]);
 
@@ -134,7 +134,7 @@ export const IncomesTable = () => {
 
   return (
     <Container>
-      <Typography variant='h2'>Total Income: {totalIncomes}</Typography>
+      <Typography variant='h2'>Total Income: {totalIncome}</Typography>
       <DataGrid
         rows={incomes}
         columns={columns}

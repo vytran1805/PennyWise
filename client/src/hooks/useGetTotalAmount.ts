@@ -5,7 +5,7 @@ export const useGetTotalAmount = (
   transactions: TransactionResponse[] | undefined
 ) => {
   if (!transactions || transactions.length === 0) {
-    return numberToCurrency(0); // Return zero if dataList is undefined or empty
+    return 0; // Return zero if dataList is undefined or empty
   }
 
   const total = transactions.reduce(
@@ -15,5 +15,5 @@ export const useGetTotalAmount = (
     },
     0
   );
-  return numberToCurrency(total);
+  return total;
 };

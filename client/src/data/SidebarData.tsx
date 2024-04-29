@@ -13,27 +13,15 @@ export const sidebarItems = [
     icon: <PaymentsRoundedIcon />,
   },
   {
-    title: 'Budgets',
-    icon: <SavingsOutlinedIcon />,
-  },
-  // {
-  //   title: 'Goals',
-  //   icon: <SavingsOutlinedIcon />,
-  // },
-  {
     title: 'Incomes',
     icon: <LocalAtmRoundedIcon />,
+  },
+  {
+    title: 'Budget',
+    icon: <SavingsOutlinedIcon />,
   },
   {
     title: 'Settings',
     icon: <SettingsRoundedIcon />,
   },
-  // {
-  //   title: 'Budget6',
-  //   icon: <SavingsOutlinedIcon />,
-  // },
-  // {
-  //   title: 'Budget7',
-  //   icon: <SavingsOutlinedIcon />,
-  // },
 ];

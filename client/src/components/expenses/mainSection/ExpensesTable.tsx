@@ -22,10 +22,9 @@ const Container = styled.div`
 // NOTE: The 'description' will be shown in the ExpenseDetails component
 export const ExpensesTable = () => {
   const navigate = useNavigate();
-  const [totalExpenses, setTotalExpenses] = useState<string>('');
+  const [totalExpense, setTotalExpense] = useState<string>('');
   const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
   const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
-  console.log({ expensesData });
 
   // Destructuring mutation hooks for deleting and updating expenses
   const [deleteExpense] = useDeleteExpenseMutation();
@@ -33,7 +32,7 @@ export const ExpensesTable = () => {
 
   const getTotalExpenses = () => {
     const total = useGetTotalAmount(expensesData);
-    setTotalExpenses(total);
+    setTotalExpense(numberToCurrency(total));
   };
   /**
    * Prepare row records for the table using useMemo()
@@ -50,7 +49,7 @@ export const ExpensesTable = () => {
       getTotalExpenses();
     }
     return () => {
-      setTotalExpenses(''); // Clear the state when component is unmounted
+      setTotalExpense(''); // Clear the state when component is unmounted
     };
   }, [expensesData]);
 
