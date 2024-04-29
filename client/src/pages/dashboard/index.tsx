@@ -1,4 +1,5 @@
 import { TransactionsChart } from '@/components/dashboard/TransactionsChart';
+import { Balance } from '@/components/dashboard/Balance';
 
 import { Box } from '@mui/material';
 import styled from 'styled-components';
@@ -12,6 +13,7 @@ const Container = styled(Box)({
 export const Dashboard = () => {
   return (
     <Container>
+      <Balance />
       <TransactionsChart />
     </Container>
   );
