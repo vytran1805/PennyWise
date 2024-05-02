@@ -2,8 +2,8 @@ import Category from '../models/category.js';
 
 export const createCategory = async (req, res) => {
   try {
-    const { name } = req.body;
-    const newCategory = new Category({ name });
+    const { name, type } = req.body;
+    const newCategory = new Category({ name, type });
     await newCategory.save();
     res.status(201).json({ message: '201 - Category created successfully' });
   } catch (error) {
@@ -62,7 +62,7 @@ export const deleteCategory = async (req, res) => {
     if (!categoryToDelete) {
       return res.status(404).json({ error: 'Category not found' });
     }
-    const updatedCategories = Category.find();
+    const updatedCategories = await Category.find();
     res.status(200).json({
       message: 'Category has been deleted successfully',
       updatedCategories,

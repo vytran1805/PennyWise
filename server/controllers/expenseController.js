@@ -7,7 +7,8 @@ import Expense from '../models/expense.js';
  */
 export const createExpense = async (req, res) => {
   try {
-    const { user_id, name, description, amount, category_id, date } = req.body;
+    const { user_id, name, description, amount, category_id, date, type } =
+      req.body;
     const newExpense = new Expense({
       user_id,
       name,
@@ -15,6 +16,7 @@ export const createExpense = async (req, res) => {
       amount,
       date,
       category_id,
+      type,
     });
     await newExpense.save();
     res.status(201).json({ message: '201 - Expense created successfully' });

@@ -7,13 +7,16 @@ import Income from '../models/income.js';
  */
 export const createIncome = async (req, res) => {
   try {
-    const { user_id, name, description, amount, date } = req.body;
+    const { user_id, name, description, amount, date, category_id, type } =
+      req.body;
     const newIncome = new Income({
       user_id,
       name,
       description,
       amount,
       date,
+      category_id,
+      type,
     });
     await newIncome.save();
     res.status(201).json({ message: '201 - Income created successfully' });
