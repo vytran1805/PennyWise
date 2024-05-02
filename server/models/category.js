@@ -2,19 +2,7 @@ import mongoose from 'mongoose';
 
 const categorySchema = new mongoose.Schema({
   name: { type: String, require: true },
-  description: { type: String, require: false },
-  expenses: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Expense',
-      required: false,
-    },
-  ],
-  budget: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Income',
-    required: false,
-  },
+  type: { type: String, enum: ['Income', 'Expense'], required: true }, // New field to distinguish between income and expense categories
 });
 
 const Category = mongoose.model('Category', categorySchema);

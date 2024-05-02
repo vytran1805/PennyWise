@@ -12,20 +12,6 @@ const userSchema = new mongoose.Schema({
     unique: true,
   },
   password: { type: String, required: [true, 'Passwordis required'] },
-  income: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Income',
-      required: false,
-    },
-  ],
-  expense: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Expense',
-      required: false,
-    },
-  ],
 });
 
 // take the schema above and put it inside the User model
