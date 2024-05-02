@@ -1,5 +1,6 @@
 // routePaths.js
 
 export const AUTH = '/api/auth';
-export const EXPENSES = '/api/expenses';
-export const INCOMES = '/api/incomes';
+export const EXPENSE = '/api/expense';
+export const INCOME = '/api/income';
+export const CATEGORY = 'api/category';
