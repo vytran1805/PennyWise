@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '@/state/api';
 
 const Container = styled.div`
   display: flex;
@@ -26,7 +27,7 @@ export const Signup = () => {
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault(); //prevent the page from refreshing after hitting submit
     axios
-      .post('hpenny-wise-backend.vercel.app/api/auth/register', {
+      .post(`${BASE_URL}/api/auth/register`, {
         email,
         username,
         password,
@@ -49,7 +50,7 @@ export const Signup = () => {
 
   const fetchUsers = () => {
     axios
-      .get('penny-wise-backend.vercel.app/api/auth/register')
+      .get(`${BASE_URL}/api/auth/register`)
       .then((res) => console.log(res.data));
   };
   return (

@@ -32,7 +32,7 @@ function App() {
               <Route path='/register' element={<Signup />} />
               {isUserLoggedIn && (
                 <>
-                  <Route path='/dashboard' element={<Dashboard />} />
+                  <Route path='/dashboard/*' element={<Dashboard />} />
                   {/* when the URL matches the pattern /expense/*, the <Expenses /> component will be rendered */}
                   <Route path='/expenses/*' element={<Expenses />} />
                   <Route path='/incomes/*' element={<Incomes />} />
