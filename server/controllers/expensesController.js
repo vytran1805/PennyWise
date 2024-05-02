@@ -7,13 +7,14 @@ import Expense from '../models/expense.js';
  */
 export const createExpense = async (req, res) => {
   try {
-    const { name, description, amount, category, date } = req.body;
+    const { user_id, name, description, amount, category_id, date } = req.body;
     const newExpense = new Expense({
+      user_id,
       name,
       description,
       amount,
       date,
-      category,
+      category_id,
     });
     await newExpense.save();
     res.status(201).json({ message: '201 - Expense created successfully' });
@@ -65,7 +66,7 @@ export const updateExpense = async (req, res) => {
     const updatedData = await Expense.find();
 
     res.status(200).json({
-      message: 'Expense updated successfully',
+      message: 'Expense has been updated successfully',
       updatedData,
     });
   } catch (error) {
@@ -86,12 +87,12 @@ export const deleteExpense = async (req, res) => {
     // Send a success response with the updated data after deletion
     const updatedExpenses = await Expense.find();
     res.status(200).json({
-      message: 'Expense deleted successfully',
+      message: 'Expense has been deleted successfully',
       updatedExpenses,
     });
   } catch (error) {
     res.status(500).json({
-      error: '500 - Unable to delete expense',
+      error: '500 - Unable to delete the expense',
       message: error.message,
     });
   }

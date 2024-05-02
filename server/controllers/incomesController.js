@@ -7,13 +7,13 @@ import Income from '../models/income.js';
  */
 export const createIncome = async (req, res) => {
   try {
-    const { name, description, amount, category, date } = req.body;
+    const { user_id, name, description, amount, date } = req.body;
     const newIncome = new Income({
+      user_id,
       name,
       description,
       amount,
       date,
-      category,
     });
     await newIncome.save();
     res.status(201).json({ message: '201 - Income created successfully' });
@@ -64,7 +64,7 @@ export const updateIncome = async (req, res) => {
     const updatedData = await Income.find();
 
     res.status(200).json({
-      message: 'Income updated successfully',
+      message: 'Income has been updated successfully',
       updatedData,
     });
   } catch (error) {
@@ -85,12 +85,12 @@ export const deleteIncome = async (req, res) => {
     // Fetch the updated data after deletion
     const updatedIncome = await Income.find();
     res.status(200).json({
-      message: 'Income deleted successfully',
+      message: 'Income has been deleted successfully',
       updatedIncome,
     });
   } catch (error) {
     res.status(500).json({
-      error: '500 - Unable to delete income',
+      error: '500 - Unable to delete the income',
       message: error.message,
     });
   }
