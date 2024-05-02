@@ -1,0 +1,38 @@
+[
+  {
+    "_id": "6633ae967dbdce9077c2df9c",
+    "name": "Salary",
+    "type": "Income",
+    "__v": 0
+  },
+  {
+    "_id": "6633aea27dbdce9077c2df9e",
+    "name": "Side hustle",
+    "type": "Income",
+    "__v": 0
+  },
+  {
+    "_id": "6633aea97dbdce9077c2dfa0",
+    "name": "Investment",
+    "type": "Income",
+    "__v": 0
+  },
+  {
+    "_id": "6633aeb07dbdce9077c2dfa2",
+    "name": "Rent",
+    "type": "Expense",
+    "__v": 0
+  },
+  {
+    "_id": "6633aebc7dbdce9077c2dfa4",
+    "name": "Groceries",
+    "type": "Expense",
+    "__v": 0
+  },
+  {
+    "_id": "6633aec27dbdce9077c2dfa6",
+    "name": "Transportation",
+    "type": "Expense",
+    "__v": 0
+  }
+]

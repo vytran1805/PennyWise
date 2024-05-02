@@ -1,0 +1,29 @@
+[
+  {
+    "user_id": "66330a00401cb46058496b9f",
+    "name": "Groceries",
+    "description": "Monthly grocery shopping",
+    "amount": 100.5,
+    "date": "2024-04-30T00:00:00.000Z",
+    "category_id": "6633aebc7dbdce9077c2dfa4",
+    "type": "Expense"
+  },
+  {
+    "user_id": "66330a1c401cb46058496ba1",
+    "name": "Monthly rent",
+    "description": "Rent",
+    "amount": 50.25,
+    "date": "2024-04-29T00:00:00.000Z",
+    "category_id": "6633aeb07dbdce9077c2dfa2",
+    "type": "Expense"
+  },
+  {
+    "user_id": "66330a24401cb46058496ba3",
+    "name": "Fuel",
+    "description": "Gasoline for the car",
+    "amount": 40.0,
+    "date": "2024-04-28T00:00:00.000Z",
+    "category_id": "6633aec27dbdce9077c2dfa6",
+    "type": "Expense"
+  }
+]

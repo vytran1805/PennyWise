@@ -1,0 +1,29 @@
+[
+  {
+    "user_id": "66330a00401cb46058496b9f",
+    "name": "Salary",
+    "description": "Monthly salary",
+    "amount": 5000,
+    "date": "2024-05-01T00:00:00.000Z",
+    "category_id": "6633ae967dbdce9077c2df9c",
+    "type": "Income"
+  },
+  {
+    "user_id": "66330a1c401cb46058496ba1",
+    "name": "Side hustle",
+    "description": "Additional income",
+    "amount": 1000,
+    "date": "2024-05-01T00:00:00.000Z",
+    "category_id": "6633aea27dbdce9077c2df9e",
+    "type": "Income"
+  },
+  {
+    "user_id": "66330a24401cb46058496ba3",
+    "name": "Investment",
+    "description": "Dividend income",
+    "amount": 200,
+    "date": "2024-05-01T00:00:00.000Z",
+    "category_id": "6633aea97dbdce9077c2dfa0",
+    "type": "Income"
+  }
+]
