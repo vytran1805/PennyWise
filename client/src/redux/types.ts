@@ -3,7 +3,7 @@
  **********************************/
 
 export enum TransactionType {
-  Expenses = 'Expense',
+  Expense = 'Expense',
   Income = 'Income',
 }
 /**
@@ -12,23 +12,36 @@ export enum TransactionType {
  */
 export interface TransactionResponse {
   _id: string;
+  user_id: string;
   name: string;
+  description: string;
   amount: number;
   date: Date;
-  category: string;
-  description: string;
-  __v: number;
+  category_id: string;
   type: TransactionType;
+  __v: number;
 }
 
 /**
  * Structure of Income/Expense Data that BEING SENT back to the server
  */
 export interface TransactionData {
-  date?: Date;
+  user_id: string;
   name?: string;
   description?: string;
   amount?: number;
-  category?: string;
+  date?: Date;
+  category_id?: string;
   type?: TransactionType;
+}
+
+/**
+ * Structure of Category data from the server
+ * Note: used in api.ts
+ */
+export interface CategoryResponse {
+  _id: string;
+  name: string;
+  type: string;
+  __v: number;
 }
