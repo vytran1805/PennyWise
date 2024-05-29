@@ -29,7 +29,7 @@ export const createExpense = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-export const getAllExpenses = async (req, res) => {
+export const getUserExpenses = async (req, res) => {
   try {
     const expenses = await Expense.find();
     res.status(201).json(expenses);

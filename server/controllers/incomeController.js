@@ -29,7 +29,7 @@ export const createIncome = async (req, res) => {
  * @param {*} req
  * @param {*} res
  */
-export const getAllIncomes = async (req, res) => {
+export const getUserIncomes = async (req, res) => {
   try {
     const incomes = await Income.find();
     res.status(201).json(incomes);
