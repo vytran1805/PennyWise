@@ -1,6 +1,6 @@
 import {
   useDeleteIncomeMutation,
-  useGetAllIncomesQuery,
+  useGetUserIncomesQuery,
   useUpdateIncomeMutation,
 } from '@/redux/incomesApi';
 import { TransactionResponse } from '@/redux/types';
@@ -23,7 +23,7 @@ const Container = styled.div`
 export const IncomesTable = () => {
   const navigate = useNavigate();
   const [incomes, setIncomes] = useState<TransactionResponse[]>([]);
-  const { data: incomesData } = useGetAllIncomesQuery(); // Fetch income data using the query hook
+  const { data: incomesData } = useGetUserIncomesQuery(); // Fetch income data using the query hook
   const [totalIncome, setTotalIncome] = useState<string>('');
   // Destructuring mutation hooks for deleting and updating incomes
   const [deleteIncome] = useDeleteIncomeMutation();

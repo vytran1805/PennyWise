@@ -17,7 +17,7 @@ export const ExpenseForm = (props: Props) => {
     name: '',
     description: '',
     amount: 0,
-    category_id: '',
+    // category_id: '',
   });
 
   const handleDateChange = (date: Date | null) => {

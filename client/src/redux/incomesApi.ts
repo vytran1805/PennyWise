@@ -15,7 +15,7 @@ export const incomesApi = emptySplitApi.injectEndpoints({
       invalidatesTags: ['Incomes'],
     }),
 
-    getAllIncomes: build.query<TransactionResponse[], void>({
+    getUserIncomes: build.query<TransactionResponse[], void>({
       query: () => INCOME_URL,
       // Generates cache tags for each income item fetched
       // See: https://redux-toolkit.js.org/rtk-query/usage/examples
@@ -56,7 +56,7 @@ export const incomesApi = emptySplitApi.injectEndpoints({
 
 export const {
   useCreateIncomeMutation,
-  useGetAllIncomesQuery,
+  useGetUserIncomesQuery,
   useDeleteIncomeMutation,
   useUpdateIncomeMutation,
   useGetIncomeQuery,

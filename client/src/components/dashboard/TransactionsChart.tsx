@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useGetAllExpensesQuery } from '@/redux/expensesApi'; // Update the path with your actual imports
+import { useGetUserExpensesQuery } from '@/redux/expensesApi'; // Update the path with your actual imports
 import { dateFormat, sortDates } from '@/utils/dateUtils';
 import { useTheme } from '@mui/material';
 import {
@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import styled from 'styled-components';
-import { useGetAllIncomesQuery } from '@/redux/incomesApi';
+import { useGetUserIncomesQuery } from '@/redux/incomesApi';
 
 type ColorProps = {
   color: string;
@@ -42,8 +42,8 @@ export const TransactionsChart = () => {
   const { palette } = useTheme();
 
   // Fetch expenses and incomes data
-  const { data: expenses } = useGetAllExpensesQuery();
-  const { data: incomes } = useGetAllIncomesQuery();
+  const { data: expenses } = useGetUserExpensesQuery();
+  const { data: incomes } = useGetUserIncomesQuery();
 
   // State to hold chart data
   const [chartData, setChartData] = useState<any>(null);

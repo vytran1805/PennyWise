@@ -15,7 +15,7 @@ export const expensesApi = emptySplitApi.injectEndpoints({
       invalidatesTags: ['Expenses'],
     }),
 
-    getAllExpenses: build.query<TransactionResponse[], void>({
+    getUserExpenses: build.query<TransactionResponse[], void>({
       query: () => EXPENSES_URL,
       // Generates cache tags for each expense item fetched
       // See: https://redux-toolkit.js.org/rtk-query/usage/examples
@@ -56,7 +56,7 @@ export const expensesApi = emptySplitApi.injectEndpoints({
 
 export const {
   useCreateExpenseMutation,
-  useGetAllExpensesQuery,
+  useGetUserExpensesQuery,
   useGetExpenseQuery,
   useDeleteExpenseMutation,
   useUpdateExpenseMutation,

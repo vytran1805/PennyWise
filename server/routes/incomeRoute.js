@@ -1,6 +1,6 @@
 import express from 'express';
 import {
-  getAllIncomes,
+  getUserIncomes,
   createIncome,
   updateIncome,
   deleteIncome,
@@ -11,11 +11,11 @@ const incomeRouter = express.Router();
 
 // incomeRouter
 //   .route('/incomes')
-//   .get(getAllIncomes)
+//   .get(getUserIncomes)
 //   .post(createIncome);
 // incomeRouter.route('/incomes').post(logUserIn);
 incomeRouter.post('/', createIncome);
-incomeRouter.get('/', getAllIncomes);
+incomeRouter.get('/', getUserIncomes);
 incomeRouter.get('/:id', getIncome);
 incomeRouter.patch('/:id', updateIncome);
 incomeRouter.delete('/:id', deleteIncome);

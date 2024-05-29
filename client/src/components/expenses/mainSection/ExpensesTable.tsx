@@ -1,6 +1,6 @@
 import {
   useDeleteExpenseMutation,
-  useGetAllExpensesQuery,
+  useGetUserExpensesQuery,
   useUpdateExpenseMutation,
 } from '@/redux/expensesApi';
 import { TransactionResponse } from '@/redux/types';
@@ -24,7 +24,7 @@ export const ExpensesTable = () => {
   const navigate = useNavigate();
   const [totalExpense, setTotalExpense] = useState<string>('');
   const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
-  const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
+  const { data: expensesData } = useGetUserExpensesQuery(); // Fetch expense data
   console.log(expensesData);
 
   // Destructuring mutation hooks for deleting and updating expenses
