@@ -3,15 +3,15 @@ import mongoose from 'mongoose';
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
-    required: [true, 'Email is required and should be unique'],
-    unique: true,
+    required: [true, 'Email is required'],
+    unique: [true, 'Email should be unique'],
   },
   username: {
     type: String,
-    required: [true, 'Name is required and should be unique'],
-    unique: true,
+    required: [true, 'Name is required'],
+    unique: [true, 'Name should be unique'],
   },
-  password: { type: String, required: [true, 'Passwordis required'] },
+  password: { type: String, required: [true, 'Password is required'] },
 });
 
 // take the schema above and put it inside the User model
