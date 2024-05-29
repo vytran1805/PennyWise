@@ -25,6 +25,7 @@ export const ExpensesTable = () => {
   const [totalExpense, setTotalExpense] = useState<string>('');
   const [expenses, setExpenses] = useState<TransactionResponse[]>([]);
   const { data: expensesData } = useGetAllExpensesQuery(); // Fetch expense data
+  console.log(expensesData);
 
   // Destructuring mutation hooks for deleting and updating expenses
   const [deleteExpense] = useDeleteExpenseMutation();
@@ -95,14 +96,14 @@ export const ExpensesTable = () => {
     {
       field: 'date',
       headerName: 'Date',
-      flex: 2,
+      flex: 1,
       editable: true,
       valueFormatter: ({ value }) => dateFormat(value),
     },
     {
-      field: 'category',
-      headerName: 'Category',
-      flex: 1,
+      field: 'description',
+      headerName: 'Description',
+      flex: 2,
       editable: true,
     },
     {
@@ -115,7 +116,7 @@ export const ExpensesTable = () => {
     {
       field: 'actions',
       headerName: 'Actions',
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => {
         const expenseId = params.row._id;
         return (

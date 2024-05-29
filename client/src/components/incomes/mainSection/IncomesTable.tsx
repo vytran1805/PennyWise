@@ -94,14 +94,14 @@ export const IncomesTable = () => {
       field: 'date',
       headerName: 'Date',
       type: 'Date',
-      flex: 2,
+      flex: 1,
       editable: true,
       valueFormatter: ({ value }) => dateFormat(value),
     },
     {
-      field: 'category',
-      headerName: 'Category',
-      flex: 1,
+      field: 'description',
+      headerName: 'Description',
+      flex: 2,
       editable: true,
     },
     {
@@ -115,7 +115,7 @@ export const IncomesTable = () => {
     {
       field: 'actions',
       headerName: 'Actions',
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => {
         const incomeId = params.row._id;
         return (
