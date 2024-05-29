@@ -4,9 +4,10 @@ import mongoose from 'mongoose';
 import cors from 'cors'; //handle cross origin resource sharing requests so that we can call from different URL
 import dotenv from 'dotenv';
 import authRouter from './routes/authRoute.js';
-import expensesRouter from './routes/expensesRoute.js';
-import incomesRouter from './routes/incomesRoute.js';
-import { AUTH, EXPENSES, INCOMES } from './routes/routePaths.js'; // Import route paths
+import expenseRouter from './routes/expenseRoute.js';
+import categoryRouter from './routes/categoryRoute.js';
+import incomeRouter from './routes/incomeRoute.js';
+import { AUTH, EXPENSE, INCOME, CATEGORY } from './routes/routePaths.js'; // Import route paths
 
 /* CONFIGURATION */
 dotenv.config();
@@ -23,12 +24,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // See: https://mongoosejs.com/docs/migrating_to_6.html#no-more-deprecation-warning-options
 mongoose
   .connect(process.env.MONGO_URL)
-  .then(() => {
+  .then(async () => {
     app.listen(PORT, () => {
       console.log(
         `Server is connected to port ${PORT} and connected to MongoDB`
       );
     });
+    // await mongoose.connection.db.dropDatabase();
   })
   .catch((error) => {
     console.log('Unable to connect to Server and/or MongoDB');
@@ -45,8 +47,9 @@ app.use(bodyParser.json());
 /* ROUTES */
 // Authentication
 app.use(AUTH, authRouter);
-app.use(EXPENSES, expensesRouter);
-app.use(INCOMES, incomesRouter);
+app.use(EXPENSE, expenseRouter);
+app.use(INCOME, incomeRouter);
+app.use(CATEGORY, categoryRouter);
 // app.post('/register', createUser);
 // GET registered users
 // app.get('/register', getUsers);
