@@ -1,7 +1,7 @@
 import { TransactionData, TransactionResponse } from './types';
 import { emptySplitApi } from './emptyApi';
 
-const EXPENSES_URL = 'api/expenses';
+const EXPENSES_URL = 'api/expense';
 export const expensesApi = emptySplitApi.injectEndpoints({
   // reducerPath: 'expenses',
   // baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),

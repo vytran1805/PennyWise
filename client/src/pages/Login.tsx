@@ -33,6 +33,7 @@ export const Login = () => {
       navigate('/dashboard');
       window.location.reload();
       localStorage.setItem('token', token);
+      // localStorage.setItem('userId', userId);
     } catch (error) {
       alert('Login error');
     }

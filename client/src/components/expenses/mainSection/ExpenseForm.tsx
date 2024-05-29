@@ -12,11 +12,12 @@ export const ExpenseForm = (props: Props) => {
   const { onClose } = props;
   const [createExpense] = useCreateExpenseMutation();
   const [formData, setFormData] = useState<TransactionData>({
+    user_id: '',
     date: undefined,
     name: '',
     description: '',
     amount: 0,
-    category: '',
+    category_id: '',
   });
 
   const handleDateChange = (date: Date | null) => {

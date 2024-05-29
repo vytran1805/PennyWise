@@ -1,7 +1,7 @@
 import { TransactionData, TransactionResponse } from './types';
 import { emptySplitApi } from './emptyApi';
 
-const INCOME_URL = 'api/incomes';
+const INCOME_URL = 'api/income';
 export const incomesApi = emptySplitApi.injectEndpoints({
   // reducerPath: 'incomes',
   // baseQuery: fetchBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
